@@ -11,7 +11,7 @@ public class Pokemon
     /// This is the name of the Pokemon
     /// </summary>
     /// <value>Pokemon's Name</value>
-    public string name { get; set; }
+    public string name { get; set; } = "";
 
     /// <summary>
     /// This is how many Health Points a Pokemon has, determines how many hits it can take before it is defeated
@@ -74,6 +74,9 @@ public class Pokemon
     /// <value>Special Attack</value>
     public string specialAttack { get; set; } = "";
 
+    public Pokemon(){
+
+    }
     public Pokemon(string _name, string _type)
     {
         name = _name;
