@@ -1,121 +1,166 @@
+using System;
+using Serilog;
 namespace GameEngine
 {
     public class Game
-    {
-        /// <summary>
-        /// Kills Game
-        /// </summary>
-        bool exitGame = false;
-        /// <summary>
-        /// Keeps track of the number of times the game has looped, might be useful for error handling
-        /// </summary>
+    {        
         int gameTicks = 1;
-        /// <summary>
-        /// List of all possible pokemon
-        /// </summary>
-        /// <typeparam name="Pokemon">Pokemon</typeparam>
-        /// <returns>A List of all possible rollable Pokemon</returns>
+        int round = 1;
+        //Full List of Pokemon Available
         List<Pokemon> Pokedex = new List<Pokemon>();
-
-        /// <summary>
-        /// List of pokemon in the player's possesion
-        /// </summary>
-        /// <typeparam name="Pokemon">Pokemon</typeparam>
-        /// <returns>List of pokemon in the player's possesion</returns>
+        //Player's Pokedex, this list is pulled from the database in the future
         List<Pokemon> playerDex = new List<Pokemon>();
-
-        /// <summary>
-        /// List of pokemon in the enemy's possesion
-        /// </summary>
-        /// <typeparam name="Pokemon">Pokemon</typeparam>
-        /// <returns>List of pokemon in the enemy's possesion</returns>
+        //Current Enemy's Pokedex, this is pulled from the database in the future
         List<Pokemon> enemyDex = new List<Pokemon>();
+        //HP List, which kinda doubles as player list? maybe make player hp a thing in user
+        List<int> playerHP = new List<int>(){ 10, 10 };
 
-        /// <summary>
-        /// Runs the Game (in console rn)
-        /// </summary>
         public void run()
         {
-            var rdm = new Random();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.File($"logs/{gameTicks}log.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            bool exitGame = false;
             populateDex();
             // Start of the Game,
             do
             {
-                // Player and Enemy HP
-                /// <summary>
-                /// Player HP
-                /// </summary>
-                int pHP = 5;
-                /// <summary>
-                /// Enemy HP
-                /// </summary>
-                int eHP = 5;
-
-                // Clean out Dex every new Game
-                playerDex = new List<Pokemon>();
-                enemyDex = new List<Pokemon>();
-
-                // Generate a small pool for the player to start with,
-                addPokemon();
-                addPokemon();
-                addPokemon();
-                int round = 1;
-                do
+                //This Loop runs until exitGame is true
+                Log.Information("Test");
+                startGame();
+                //shuffle player list, match ups are paired
+                round = 1;
+                do 
                 {
-                    // Wins, Losses, and Ties
-                    int w = 0;
-                    int l = 0;
-                    int t = 0;
-                    Console.WriteLine($"Round {round}\n");
-                    // Randomize the list
-                    playerDex.shuffle();
-                    enemyDex.shuffle();
+                    startRound(playerDex, enemyDex); //this is a 1v1 match til the hp = 0, will change when 8 players exist
+                } while (playerHP[0] > 0 && playerHP[1] > 0);
 
-                    for (int x = 0; x < playerDex.Count; x++)
-                    {
-                        Pokemon attacker = playerDex[x];
-                        Pokemon defender = enemyDex[x];
-                        switch (fight(attacker, defender))
-                        {
-                            case -1:
-                                //Console.WriteLine("Fight Lost...");
-                                pHP--;
-                                l++;
-                                break;
-                            case 0:
-                                //Console.WriteLine("Fight Tied?");
-                                t++;
-                                break;
-                            case 1:
-                                //Console.WriteLine("Fight Won!");
-                                eHP--;
-                                w++;
-                                break;
-                            default:
-                                Console.WriteLine("Fight... went wrong?");
-                                break;
-                        }
-                    }
-                    Console.WriteLine($"\nWins: {w} | Losses: {l} | Ties: {t}");
-                    Console.WriteLine($"php: {pHP} | ehp: {eHP}");
-                    round++;
-                    if (pHP > 0 && eHP > 0) { addPokemon(); }
-                } while (pHP > 0 && eHP > 0);
-
-                if (pHP > eHP && pHP > 0) { Console.WriteLine("You Win!"); }
-                if (eHP > pHP && eHP > 0) { Console.WriteLine("You Lose..."); }
-                if (pHP < 1 && eHP < 1) { Console.WriteLine("You... tied?"); }
+                if (playerHP[0] > playerHP[1] && playerHP[0]  > 0) { Console.WriteLine("You Win!"); }
+                if (playerHP[1] > playerHP[0] && playerHP[1] > 0) { Console.WriteLine("You Lose..."); }
+                if (playerHP[0] < 1 && playerHP[1] < 1) { Console.WriteLine("You... tied?"); }
                 //Exits the game
                 Console.WriteLine("\nGames Played: " + gameTicks + "\nPress x to quit");
                 gameTicks++;
-                ConsoleKeyInfo input = Console.ReadKey(); //dont judge me i wanted to see how this worked
+                ConsoleKeyInfo input = Console.ReadKey();
                 if (input.Key == ConsoleKey.X)
                 {
+                    Log.Debug("Game Has Ended");
+                    Log.CloseAndFlush();
                     exitGame = true;
                 }
             } while (!exitGame);
         }
+        public void startGame()
+        {
+            //This Happens on Game Start, this is where everything is reset
+            //Reset HP, In the future when there's more rivals/trainers, this is converted to an array/list. 
+            playerHP = new List<int>(){ 10, 10 }; //fix this to fit 8 players
+            // Clean out Dex every new Game, in the future this will be a method to clear out the database
+            playerDex = new List<Pokemon>();
+            enemyDex = new List<Pokemon>();
+            // Generate a small pool for the player to start with, maybe make a unique one for game start
+            addPokemon();
+            addPokemon();
+            addPokemon();
+        }
+        public void startRound(List<Pokemon> attacker, List<Pokemon> defender)
+        {
+            //a round is described as a single player vs player match
+            //takes the player's current pokedex, shuffles them and pits each one against each other using the start fight method.
+            //the reason why we're making an instance of the list is that in the future, when a pokemon is defeated, it will be removed from the list and the pokemon who win will have their hp be their remaining hp. the winner will be whoever has any remaining pokemon, and only the loser takes damage
+            //
+            // Wins, Losses, and Ties
+            int w = 0;
+            int l = 0;
+            int t = 0;
+            Console.WriteLine($"Round {round}\n");
+            // Randomize the list
+            List<Pokemon> aDex = attacker;
+            List<Pokemon> dDex = defender;
+            aDex.shuffle();
+            dDex.shuffle();
 
+            for (int x = 0; x < playerDex.Count; x++)
+            {
+                Pokemon aPokemon = aDex[x];
+                Pokemon dPokemon = dDex[x];
+                switch (startFight(aPokemon, dPokemon))
+                {
+                    case -1:
+                        //Console.WriteLine("Fight Lost...");
+                        playerHP[0]--;
+                        l++;
+                        break;
+                    case 0:
+                        //Console.WriteLine("Fight Tied?");
+                        t++;
+                        break;
+                    case 1:
+                        //Console.WriteLine("Fight Won!");
+                        playerHP[1]--;
+                        w++;
+                        break;
+                    default:
+                        Console.WriteLine("Something went Wrong");
+                        break;
+                }
+            }
+            Console.WriteLine($"\nWins: {w} | Losses: {l} | Ties: {t}");
+            Console.WriteLine($"php: {playerHP[0]} | ehp: {playerHP[1]}");
+            round++;
+            if (playerHP[0] > 0 && playerHP[1] > 0 && round % 2 == 0) { addPokemon(); }
+            //can add conditions to when we give a person a pokemon?
+        }
+        /// <summary>
+        /// Pokemon fight itself, logs damage until either pokemon runs out of hp
+        /// </summary>
+        /// <param name="attacker">Attacking Pokemon</param>
+        /// <param name="defender">Defending Pokemon</param>
+        /// <returns>Returns 1 if won, returns -1 if lost, returns 0 if tied</returns>
+        public int startFight(Pokemon attacker, Pokemon defender)
+        {
+            int turn = 1;
+            int result = 0;
+            int aDamageBonus = damageBonus(attacker, defender);
+            int dDamageBonus = damageBonus(defender, attacker);
+            double aHP = Convert.ToDouble(attacker.hp);
+            double dHP = Convert.ToDouble(defender.hp);
+            //Damage Calculator
+            Console.WriteLine($"\n{attacker.name} and {defender.name} are fighting!");
+            Console.WriteLine($"Turn: {turn} | {attacker.name}: {aHP} | {defender.name}: {dHP}");
+            while (aHP > 0 && dHP > 0)
+            {
+                //Console.WriteLine($"{attacker.name} attacks {defender.name}!");
+                double aDamage = damageCalc(attacker.attack, aDamageBonus, defender.defense);
+                Console.WriteLine($"{attacker.name} hits {defender.name} for {aDamage} damage!");
+                dHP -= aDamage;
+
+                //Console.WriteLine($"{defender.name} attacks {attacker.name}!");
+                double dDamage = damageCalc(defender.attack, dDamageBonus, attacker.defense);
+                Console.WriteLine($"{defender.name} hits {attacker.name} for {dDamage} damage!");
+                aHP -= dDamage;
+
+                Console.WriteLine($"Turn: {turn}: {attacker.name}: {aHP} | {defender.name}: {dHP}");
+                turn++;
+                if (turn > 10)
+                {
+                    Console.WriteLine($"{attacker.name} and {defender.name} got tired of fighting");
+                    break;
+                }
+            }
+            if (aHP <= 0)
+            {
+                Console.WriteLine($"{attacker.name} has fainted!");
+                result--;
+            }
+            if (dHP <= 0)
+            {
+                Console.WriteLine($"{defender.name} has fainted!");
+                result++;
+            }
+            return result;
+        }
         /// <summary>
         /// Populates the Pokedex, hardcoded for now but in the future makes a call to the DB
         /// </summary>
@@ -317,56 +362,6 @@ namespace GameEngine
                     break;
             }
             return bonus;
-        }
-
-        /// <summary>
-        /// Pokemon fight itself, logs damage until either pokemon runs out of hp
-        /// </summary>
-        /// <param name="attacker">Attacking Pokemon</param>
-        /// <param name="defender">Defending Pokemon</param>
-        /// <returns>Returns 1 if won, returns -1 if lost, returns 0 if tied</returns>
-        public int fight(Pokemon attacker, Pokemon defender)
-        {
-            int turn = 1;
-            int result = 0;
-            int aDamageBonus = damageBonus(attacker, defender);
-            int dDamageBonus = damageBonus(defender, attacker);
-            double aHP = Convert.ToDouble(attacker.hp);
-            double dHP = Convert.ToDouble(defender.hp);
-            //Damage Calculator
-            Console.WriteLine($"\n{attacker.name} and {defender.name} are fighting!");
-            Console.WriteLine($"Turn: {turn} | {attacker.name}: {aHP} | {defender.name}: {dHP}");
-            while (aHP > 0 && dHP > 0)
-            {
-                //Console.WriteLine($"{attacker.name} attacks {defender.name}!");
-                double aDamage = damageCalc(attacker.attack, aDamageBonus, defender.defense);
-                Console.WriteLine($"{attacker.name} hits {defender.name} for {aDamage} damage!");
-                dHP -= aDamage;
-
-                //Console.WriteLine($"{defender.name} attacks {attacker.name}!");
-                double dDamage = damageCalc(defender.attack, dDamageBonus, attacker.defense);
-                Console.WriteLine($"{defender.name} hits {attacker.name} for {dDamage} damage!");
-                aHP -= dDamage;
-
-                Console.WriteLine($"Turn: {turn}: {attacker.name}: {aHP} | {defender.name}: {dHP}");
-                turn++;
-                if (turn > 10)
-                {
-                    Console.WriteLine($"{attacker.name} and {defender.name} got tired of fighting");
-                    break;
-                }
-            }
-            if (aHP <= 0)
-            {
-                Console.WriteLine($"{attacker.name} has fainted!");
-                result--;
-            }
-            if (dHP <= 0)
-            {
-                Console.WriteLine($"{defender.name} has fainted!");
-                result++;
-            }
-            return result;
         }
 
         /// <summary>
