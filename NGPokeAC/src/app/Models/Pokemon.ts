@@ -6,17 +6,15 @@ export class Pokemon
     attack?: number;
     special?: number;
     defense?: number;
-    type1?: string;
-    type2?: string;
+    type?: string;
     rarity?: number;
     childID?: number;
     parentID?: number;
     combatAI?: string;
     specialAttack?: string;
 
-    constructor() {}
-    // constructor() 
-    // {
-
-    // }
+    constructor (name: string, type: string) {
+        this.name = name;
+        this.type = type;
+    }
 }

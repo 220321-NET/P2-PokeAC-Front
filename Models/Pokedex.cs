@@ -10,6 +10,7 @@ namespace Models
             this.userId = user;
             this.pokeID = pokemon;
         }
+        public Pokedex(){}
         //List<Pokemon> pokeDex { get; set; }
     }
 }
