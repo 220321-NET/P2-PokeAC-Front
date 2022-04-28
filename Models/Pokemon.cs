@@ -29,7 +29,7 @@ public class Pokemon
     /// This is the Pokemon's Special Attack Stat, this determines how much damage it does on it's Special Attack
     /// </summary>
     /// <value>Pokemon's Special Attack</value>
-    public int special { get; set; } = 2;
+    // public int special { get; set; } = 2;
 
     /// <summary>
     /// This is the Pokemon's Defense Stat, this determines how much damage is reduced when receiving damage.
@@ -42,37 +42,37 @@ public class Pokemon
     /// </summary>
     /// <value>Pokemon's Type</value>
     public string type1 { get; set; } = "none";
-    public string type2 { get; set; } = "none";
+    // public string type2 { get; set; } = "none";
 
     /// <summary>
     /// This is the Pokemon's Rarity, this determines how often it can show up to be used. The Values are 1, 2, 3, and 5. Generally Rarity 3 pokemon are fully evolved and 5 are legendaries.
     /// </summary>
     /// <value>Pokemon's Rarity</value>
-    public int rarity { get; set; } = 1;
+    // public int rarity { get; set; } = 1;
 
     /// <summary>
     /// This is the id of the Pokemon's Pre-evolution.
     /// </summary>
     /// <value>Child ID</value>
-    public int childID { get; set; } = -1;
+    // public int childID { get; set; } = -1;
 
     /// <summary>
     /// This is the id of the Pokemon's Next Evolution
     /// </summary>
     /// <value>Parent ID</value>
-    public int parentID { get; set; }= -1; 
+    // public int parentID { get; set; }= -1; 
 
     /// <summary>
     /// This change's the Pokemon's Strategy for attacking.
     /// </summary>
     /// <value>Combat AI</value>
-    public string combatAI { get; set; } = "";
+    // public string combatAI { get; set; } = "";
 
     /// <summary>
     /// This is the name of the Pokemon's Special Attack
     /// </summary>
     /// <value>Special Attack</value>
-    public string specialAttack { get; set; } = "";
+    // public string specialAttack { get; set; } = "";
 
     public Pokemon(){
 

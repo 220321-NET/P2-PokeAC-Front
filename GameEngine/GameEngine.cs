@@ -425,7 +425,7 @@ namespace GameEngine
             Console.WriteLine("\n[#]: Select a Pokemon");
             foreach (Pokemon p in selector)
             {
-                Console.WriteLine($"[{i}]: {p.name} | HP: {p.hp} | ATK: {p.attack} | DEF: {p.defense} | Type: {p.type1}|{p.type2} | Special: {p.specialAttack}None");
+                Console.WriteLine($"[{i}]: {p.name} | HP: {p.hp} | ATK: {p.attack} | DEF: {p.defense} | Type: {p.type1}"); //|{p.type2} | Special: {p.specialAttack}None
                 i++;
             }
         Retry:
