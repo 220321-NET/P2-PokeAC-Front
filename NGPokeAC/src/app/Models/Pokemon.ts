@@ -4,14 +4,14 @@ export class Pokemon
     name?: string;
     hp?: number;
     attack?: number;
-    special?: number;
+    // special?: number;
     defense?: number;
     type?: string;
-    rarity?: number;
-    childID?: number;
-    parentID?: number;
-    combatAI?: string;
-    specialAttack?: string;
+    // rarity?: number;
+    // childID?: number;
+    // parentID?: number;
+    // combatAI?: string;
+    // specialAttack?: string;
 
     constructor (name: string, type: string) {
         this.name = name;

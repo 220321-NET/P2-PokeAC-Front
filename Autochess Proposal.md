@@ -2,7 +2,7 @@
 ### An autochess style game themed after Pokemon.
 
 ## Concept: What is autochess? 
-Autochess style games such as Hearthstone Battlegrounds, Dota Underlords and Team-Fight Tactics, are games that use an auto battler system usually with chess like elements such as a grid shaped battle field. These games are designed to take no user input during combat and have the user interation be limited to selecting a unit and placing it on the field. Generally, the unit can be combined to become a stronger version of the unit and the strategy ends up being to get as many of a certain unit as possible to create the strongest variant of them possible.
+Autochess style games such as Hearthstone Battlegrounds, Dota Underlords and Team-Fight Tactics, are games that use an auto battler system usually with chess like elements such as a grid shaped battle field. These games are designed to take no user input during combat and have the user interaction be limited to selecting a unit and placing it on the field. Generally, the unit can be combined to become a stronger version of the unit and the strategy ends up being to get as many of a certain unit as possible to create the strongest variant of them possible.
 
 The goal of the player is to assemble the strongest possible team before being sent off to a random 1 v 1 battle against either another player, or against non-player enemies to build up resources to add to or enhance their team. After a player vs player battle, there are rewards based on your performance, such as win streak, damage dealt or living allied units. At the end of each battle, the loser loses an amount of health points and When a player runs out of health points, they are eliminated from the match.
 

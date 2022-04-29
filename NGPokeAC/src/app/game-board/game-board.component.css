@@ -1,0 +1,27 @@
+.player{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
+.enemy{
+    position: absolute;
+    top: 10%;
+    right: 10%;
+}
+
+.selector {
+    position: absolute;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    
+    top: 80%;
+}
+.board {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 100px;
+}
