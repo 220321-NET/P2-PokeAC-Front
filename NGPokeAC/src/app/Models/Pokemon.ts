@@ -13,8 +13,12 @@ export class Pokemon
     // combatAI?: string;
     // specialAttack?: string;
 
-    constructor (name: string, type: string) {
+    constructor (id: number, name: string, hp: number, attack: number, defense: number, type: string) {
+        this.id = id;
         this.name = name;
+        this.hp = hp;
+        this.attack = attack;
+        this.defense = defense;
         this.type = type;
     }
 }
