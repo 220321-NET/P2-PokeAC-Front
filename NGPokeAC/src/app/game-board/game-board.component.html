@@ -15,7 +15,7 @@
 
 <body>
     <header>
-        <br><br> nav stuff
+        <img src="../../assets/userlmn_94e0458ca35d9b788b5982c1788071b1.png">
         <br><br>
         <br><br>this is the header
         <br><br>
@@ -24,7 +24,13 @@
         <div class="player">
             <h3>playe rname and hp go here</h3>
             <br>
-            and then list of pokemon ehre
+            <p *ngIf="selectPokemon.length == 0">test</p>
+            <table>
+                <tr *ngFor="let pokemon of playerPokemon">
+                    <td>{{pokemon.name}}</td>
+                </tr>
+
+            </table>
 
         </div>
 
@@ -34,56 +40,60 @@
             <br><br><br><br>
             <table class="center">
                 <tr>
+                    <td class="td">Bulbasaur</td>
                     <td class="td"></td>
                     <td class="td"></td>
                     <td class="td"><img
                             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png"></td>
+                    <td class="td">HP?</td>
                 </tr>
                 <tr>
+                    <td class="td">Stats go Here</td>
                     <td class="td"></td>
                     <td class="td"></td>
                     <td class="td"></td>
+                    <td class="td">Stats go here</td>
                 </tr>
                 <tr>
+                    <td class="td">Hp?</td>
                     <td class="td"><img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"></td>
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png">
+                    </td>
                     <td class="td"></td>
                     <td class="td"></td>
+                    <td class="td">Mewtwo</td>
 
                 </tr>
-            </table>
-            <br><br><br><br>
-            <div>
-                <!-- this is your selector, make the images buttons-->
-                <table class="center">
-                    <tr>
-                        <td class="td"><img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png">
-                        </td>
-                        <td class="td"><img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png">
-                        </td>
-                        <td class="td"><img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png">
-                        </td>
-                        <td class="td"><img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png">
-                        </td>
-                        <td class="td"><img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png">
-                        </td>
-                    <tr>
-                        <td>name</td>
-                        <td>of</td>
-                        <td>the</td>
-                        <td>five</td>
-                        <td>pokemon</td>
-                    </tr>
-                </table>
-                <br><br><br><br>
-            </div>
+                <tr>
+                    <td class="td">this is for spacing and design</td>
+                    <td class="td">empty</td>
+                    <td class="td">empty</td>
+                    <td class="td">empty</td>
+                    <td class="td">empty</td>
+                </tr>
+                <tr *ngIf="selectPokemon.length == 0">
+                    <td class="selector"></td>
+                    <td class="selector"></td>
+                    <td class="selector"></td>
+                    <td class="selector"></td>
+                    <td class="selector"></td>
+                </tr>
+                <tr>
+                    <td *ngFor="let pokemon of selectPokemon" class="selector">
+                        <button (click)="addPokemon(pokemon)">
+                            <img
+                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
+                        </button>
+                    </td>
+                <tr>
+                    <td *ngFor="let pokemon of selectPokemon">{{pokemon.name}}</td>
+                </tr>
 
+            </table>
+            <button (click)="getPokemon()">Shuffle Pokemon</button>
+            <br><br><br><br>
         </div>
+
         <div class="enemy">
             <h3>playe rname and hp go here</h3>
             <br>

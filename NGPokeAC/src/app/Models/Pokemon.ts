@@ -1,24 +1,24 @@
-export class Pokemon
+export interface Pokemon
 {
-    id?: number;
-    name?: string;
-    hp?: number;
-    attack?: number;
+    id: number;
+    name: string;
+    hp: number;
+    attack: number;
     // special?: number;
-    defense?: number;
-    type?: string;
+    defense: number;
+    type: string;
     // rarity?: number;
     // childID?: number;
     // parentID?: number;
     // combatAI?: string;
     // specialAttack?: string;
 
-    constructor (id: number, name: string, hp: number, attack: number, defense: number, type: string) {
-        this.id = id;
-        this.name = name;
-        this.hp = hp;
-        this.attack = attack;
-        this.defense = defense;
-        this.type = type;
-    }
+    // constructor (id: number, name: string, hp: number, attack: number, defense: number, type: string) {
+    //     this.id = id;
+    //     this.name = name;
+    //     this.hp = hp;
+    //     this.attack = attack;
+    //     this.defense = defense;
+    //     this.type = type;
+    // }
 }
