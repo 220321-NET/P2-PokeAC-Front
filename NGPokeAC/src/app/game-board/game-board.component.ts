@@ -273,7 +273,18 @@ export class GameBoardComponent implements OnInit {
     return damage;
   }
 
-  public getPokemon() {     
+  public getPokemon() {
+    this.selectPokemon = [];
+      for (let i = 0; i < 5; i++) 
+      {
+
+      }
+      //make async?
+      let choosePokemon = this.choosePokemon;
+      let choosePokemon1 = this.choosePokemon1;
+      let choosePokemon2 = this.choosePokemon2;
+      let choosePokemon3 = this.choosePokemon3;
+      let choosePokemon4 = this.choosePokemon4;
       this.httpService.getRandomPokemon().subscribe(res => { this.choosePokemon = res });
       this.httpService.getRandomPokemon().subscribe(res => { this.choosePokemon1 = res });
       this.httpService.getRandomPokemon().subscribe(res => { this.choosePokemon2 = res });
