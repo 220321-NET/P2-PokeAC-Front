@@ -5,15 +5,23 @@ import { AppComponent } from './app.component';
 import { GameBoardComponent } from './game-board/game-board.component';
 import { FormsModule} from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+<<<<<<< Updated upstream
 import { LoginComponent } from './login/login.component';
+=======
+import { PKMBEINFOComponent } from './pkm-be-info/pkm-be-info.component';
+>>>>>>> Stashed changes
 
 
 @NgModule({
   declarations: [
     AppComponent,
     GameBoardComponent,
+<<<<<<< Updated upstream
     LoginComponent,
 
+=======
+    PKMBEINFOComponent
+>>>>>>> Stashed changes
   ],
   imports: [
     BrowserModule,
