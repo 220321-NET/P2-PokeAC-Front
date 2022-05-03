@@ -14,11 +14,15 @@ export class HttpService {
   {
     this.http = http;
   }
+  createUser(p: Partial<User>): Observable<any> {
+    return this.http.post('https://pokemonautochess.azurewebsites.net/api/Pokemon/CreateUser', p);
+  }
+  /*
   createUser(user: User): Observable<User> {
     let stringifiedUser: string = JSON.stringify(user);
     return this.http.post('https://pokemonautochess.azurewebsites.net/api/Pokemon/CreateUser/{stringifiedUser}', user);
   }
-
+  */
   getRandomPokemon(): Observable<Pokemon> {
     return this.http.get<Pokemon>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetRandomPokemon');
   } 
