@@ -275,7 +275,10 @@ export class GameBoardComponent implements OnInit {
 
   public getPokemon() {
     this.selectPokemon = [];
-    // for (let i = 0; i < 5; i++) {  
+      for (let i = 0; i < 5; i++) 
+      {
+
+      }
       //make async?
       let choosePokemon = this.choosePokemon;
       let choosePokemon1 = this.choosePokemon1;

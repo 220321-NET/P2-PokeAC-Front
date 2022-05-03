@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../Models/User';
 import { NgForm } from '@angular/forms';
+import { HttpService } from '../services/http.service';
 
 
 @Component({
@@ -14,8 +15,9 @@ export class LoginComponent implements OnInit {
   displayRegister: boolean = false;
   userToLogin: User = new User();
   userToRegister: User = new User();
+  stringifiedUserToRegister: any;
 
-  constructor() { }
+  constructor(private api : HttpService) { }
   goToLogin(){
     this.displayLoginOrRegister = false;
     this.displayLogin = true;
@@ -35,10 +37,13 @@ export class LoginComponent implements OnInit {
     this.displayRegister = false;
   }
   tryToLogin(){
-
+    console.log("You want to send: ");
+    console.log(this.userToLogin);
   }
   tryToRegister(){
-
+    console.log("You want to Register: ");
+    console.log(this.userToRegister);
+    this.api.createUser(this.userToRegister);
   }
 
   ngOnInit(): void {

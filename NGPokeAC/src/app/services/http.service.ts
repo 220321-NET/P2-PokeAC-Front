@@ -14,8 +14,9 @@ export class HttpService {
   {
     this.http = http;
   }
-  getUser(user: User) {
-    return this.http.get(`https://pokemonautochess.azurewebsites.net/api/Pokemon/FindUser/${user}`);
+  createUser(user: User): Observable<User> {
+    let stringifiedUser: string = JSON.stringify(user);
+    return this.http.post('https://pokemonautochess.azurewebsites.net/api/Pokemon/CreateUser/{stringifiedUser}', user);
   }
 
   getRandomPokemon(): Observable<Pokemon> {

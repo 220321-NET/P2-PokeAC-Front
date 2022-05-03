@@ -34,7 +34,7 @@ footer	{
     height: 100%;
     float: left;
     background-color: rosybrown;
-    border-collapse: collapse;
+    border-collapse: collapse; 
 }
 
 .board {

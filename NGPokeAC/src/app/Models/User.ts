@@ -1,6 +1,6 @@
 export class User {
     id?: number = -1;
-    username?: string = "Guest";
+    username?: string = "";
     password?: string = "";
     matches?: number = 0;
     wins?: number = 0;
