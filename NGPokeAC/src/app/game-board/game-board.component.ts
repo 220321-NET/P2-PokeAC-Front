@@ -28,7 +28,7 @@ export class GameBoardComponent implements OnInit {
     this.httpService = httpService;
   }
 
-  public run() {
+  public async run() {
     // these three aren't *needed* for the following reason
     var Pokedex = Array<Pokemon>(); // this is used in the populate dex method, (line 76 at the time of writing) which won't be used in the future because this pokedex is only used for the addpokemon method. 
     // in there we should pull a list from our database. when we add it should add to the pokedex table
@@ -290,15 +290,6 @@ export class GameBoardComponent implements OnInit {
       this.httpService.getRandomPokemon().subscribe(res => { this.choosePokemon2 = res });
       this.httpService.getRandomPokemon().subscribe(res => { this.choosePokemon3 = res });
       this.httpService.getRandomPokemon().subscribe(res => { this.choosePokemon4 = res });
-      
-      // console.log(choosePokemon); //for some reason this is needed?
-      this.selectPokemon.push(choosePokemon);
-      this.selectPokemon.push(choosePokemon1);
-      this.selectPokemon.push(choosePokemon2);
-      this.selectPokemon.push(choosePokemon3);
-      this.selectPokemon.push(choosePokemon4);
-      
-    // }
   }
 
   public addPokemon(pokemon: Pokemon) {
@@ -355,5 +346,8 @@ export class GameBoardComponent implements OnInit {
   } // end shuffle method
 
 
-  ngOnInit(): void { }
+  ngOnInit()
+  { 
+    this.getPokemon();
+  }
 }
