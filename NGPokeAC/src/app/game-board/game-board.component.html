@@ -1,113 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    
 <head>
     <title> PokeAC </title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="game-board.component.css">
-    <!--[if lt IE 9]>
-		<script src= "http://html5shim.googlecode.com/svn/trunk/html5.js">
-		<script>
-		<![endif]-->
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
     <meta name="description" content="Pokemon Auto Chess!">
-</head>
+ </head>
 
 <body>
     <header>
         <img src="../../assets/userlmn_94e0458ca35d9b788b5982c1788071b1.png">
-        <br><br>
-        <br><br>this is the header
-        <br><br>
     </header>
+    
     <main>
-        <div class="player">
-            <h3>playe rname and hp go here</h3>
-            <br>
-            <p *ngIf="selectPokemon.length == 0">test</p>
-            <table>
-                <tr *ngFor="let pokemon of playerPokemon">
-                    <td>{{pokemon.name}}</td>
-                </tr>
+        <section class = "player-flex">
+            <div>
+                <h2>Player</h2>
+            </div>
+            <div class = "player-grid" *ngFor="let pokemon of playerPokemon">
+                <p>{{pokemon.name}}</p>
+            </div>
+        </section>
 
-            </table>
-
-        </div>
-
-        <!-- make the blank images something else? -->
-        <div class="board">
-            <br><br><br><br>
-            <br><br><br><br>
-            <table class="center">
-                <tr>
-                    <td class="td">Bulbasaur</td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"><img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png"></td>
-                    <td class="td">HP?</td>
-                </tr>
-                <tr>
-                    <td class="td">Stats go Here</td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td">Stats go here</td>
-                </tr>
-                <tr>
-                    <td class="td">Hp?</td>
-                    <td class="td"><img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png">
-                    </td>
-                    <td class="td"></td>
-                    <td class="td"></td>
-                    <td class="td">Mewtwo</td>
-
-                </tr>
-                <tr>
-                    <td class="td">this is for spacing and design</td>
-                    <td class="td">empty</td>
-                    <td class="td">empty</td>
-                    <td class="td">empty</td>
-                    <td class="td">empty</td>
-                </tr>
-                <tr *ngIf="selectPokemon.length == 0">
-                    <td class="selector"></td>
-                    <td class="selector"></td>
-                    <td class="selector"></td>
-                    <td class="selector"></td>
-                    <td class="selector"></td>
-                </tr>
-                <tr>
-                    <td *ngFor="let pokemon of selectPokemon" class="selector">
-                        <button (click)="addPokemon(pokemon)">
-                            <img
-                                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
-                        </button>
-                    </td>
-                <tr>
-                    <td *ngFor="let pokemon of selectPokemon">{{pokemon.name}}</td>
-                </tr>
-
-            </table>
-            <button (click)="getPokemon()">Shuffle Pokemon</button>
-            <br><br><br><br>
-        </div>
-
-        <div class="enemy">
-            <h3>playe rname and hp go here</h3>
-            <br>
-            and then list of pokemon ehre
-        </div>
-
-
-
+        <section class = "board-flex">
+            <div class = "board-grid">
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item add-grass">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item add-grass">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item add-grass">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item">
+                </div>
+                <div class = "grid-item add-ball">
+                    <button (click)= "addPokemon(choosePokemon)">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon.id}}.png">
+                    </button>
+                </div>
+                <div class = "grid-item add-ball">
+                    <button (click)= "addPokemon(choosePokemon1)">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon1.id}}.png">
+                    </button>
+                </div>
+                <div class = "grid-item add-ball">
+                    <button (click)= "addPokemon(choosePokemon2)">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon2.id}}.png">
+                    </button>
+                </div>
+                <div class = "grid-item add-ball">
+                    <button (click)= "addPokemon(choosePokemon3)">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon3.id}}.png">
+                    </button>
+                </div>
+                <div class = "grid-item add-ball">
+                    <button (click)= "addPokemon(choosePokemon4)">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon4.id}}.png">
+                    </button>
+                </div>
+            </div>
+        </section>
+    
+        <section class = "opponent-flex">
+            <div>
+                <h2>Opponent</h2>
+            </div>
+        </section>
     </main>
 
-    <footer>
-    </footer>
+    <footer><button (click)="getPokemon()">Shuffle Pokemon</button></footer>
 </body>
-
-
-
 </html>
+
+
+    
