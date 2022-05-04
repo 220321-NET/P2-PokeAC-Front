@@ -318,6 +318,7 @@ export class GameBoardComponent implements OnInit {
   public addPokemon(pokemon: Pokemon) {
     this.playerPokemon.push(pokemon);
     this.enemyPokemon.push(this.enemySelectPokemon[Math.floor(Math.random() * 5)]);
+    this.startRound(this.playerPokemon, this.enemyPokemon);
 
 
     //need too add ^^ and also make it so the selection option disappears til round ends

@@ -39,7 +39,7 @@
                 <div class="grid-item add-grass">
                 </div>
                 <div class="grid-item add-grass">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{enemyPokemon[0].id}}.png" *ngIf = "enemyPokemon.length > 0">
                 </div>
                 <div class="grid-item">
                 </div>
@@ -56,7 +56,7 @@
                 <div class="grid-item">
                 </div>
                 <div class="grid-item add-grass">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/{{playerPokemon[0].id}}.png" *ngIf = "playerPokemon.length > 0">
                 </div>
                 <div class="grid-item add-grass">
                 </div>
