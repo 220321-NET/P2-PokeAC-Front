@@ -11,14 +11,15 @@
 
 <body>
     <header>
-        <img src="../../assets/userlmn_94e0458ca35d9b788b5982c1788071b1.png">
+        <img class="head" src="../../assets/userlmn_94e0458ca35d9b788b5982c1788071b1.png">
     </header>
 
     <main>
         <section class="player-flex">
             <div>
-                <h2>Player: </h2>
-                <h3>HP: {{playerHP[0]}}</h3>
+                <div class="player-name">
+                    <h2>Player</h2>
+                </div>
             </div>
 
             <div class="player-grid" *ngFor="let pokemon of playerPokemon">
@@ -26,53 +27,52 @@
             </div>
         </section>
 
-        <section class="board-flex">
+        <section class="board-flex" *ngIf="showBoard">
             <div class="board-grid">
                 <div class="grid-item add-ball-enemy" *ngFor="let pokemon of enemySelectPokemon">
                     <img
                         src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
                 </div>
-                <div class="grid-item">
+                <div class="grid-item" style="background-color: #2a75bb">
+
                 </div>
                 <div class="grid-item add-grass">
                 </div>
                 <div class="grid-item add-grass">
                 </div>
                 <div class="grid-item add-grass">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{enemyPokemon[0].id}}.png" *ngIf = "enemyPokemon.length > 0">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{enemyPokemon[0].id}}.png"
+                        *ngIf="enemyPokemon.length > 0">
                 </div>
-                <div class="grid-item">
+                <div class="grid-item" style="background-color: rgb(192, 58, 58)">
                 </div>
-                <div class="grid-item">
+                <div class="grid-item" style="background-color: #2a75bb">
+                    <h3 *ngIf="playerHP[0] > 0"><br>HP: {{playerHP[0]}}</h3>
+                    <h3 *ngIf="playerHP[0] <= 0"><br>Fainted</h3>
+                </div>
+                <div class="grid-item add-grass">
+                </div>
+                <div class="grid-item add-grass add-gamestate" id="gameState">
+                </div>
+                <div class="grid-item add-grass">
+                </div>
+                <div class="grid-item" style="background-color: rgb(192, 58, 58)">
+                    <h3 *ngIf="playerHP[1] > 0"><br>HP: {{playerHP[1]}}</h3>
+                    <h3 *ngIf="playerHP[1] <= 0"><br>Fainted</h3>
+                </div>
+                <div class="grid-item" style="background-color: #2a75bb">
+
+                </div>
+                <div class="grid-item add-grass">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/{{playerPokemon[0].id}}.png"
+                        *ngIf="playerPokemon.length > 0">
                 </div>
                 <div class="grid-item add-grass">
                 </div>
                 <div class="grid-item add-grass">
                 </div>
-                <div class="grid-item add-grass">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item add-grass">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/{{playerPokemon[0].id}}.png" *ngIf = "playerPokemon.length > 0">
-                </div>
-                <div class="grid-item add-grass">
-                </div>
-                <div class="grid-item add-grass">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item">
-                </div>
-                <div class="grid-item">
+                <div class="grid-item" style="background-color: rgb(192, 58, 58)">
+
                 </div>
                 <div class="grid-item add-ball" *ngFor="let pokemon of selectPokemon">
                     <button (click)="addPokemon(pokemon)">
@@ -80,14 +80,75 @@
                             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
                     </button>
                 </div>
-                
+                <!-- <div class="grid-item" style="background-color: grey">
+                </div>
+                <div class="grid-item">
+                    <h3>
+                        MATCHES WON: {{matchwinloss[0]}}<br><br>
+                        ROUND WINS: {{roundwinloss[0]}}
+                    </h3>
+                </div>
+                <div class="grid-item">
+                    <h3>
+                        MATCHES TIED: {{matchwinloss[1]}}<br><br>
+                        ROUND TIES: {{roundwinloss[1]}}
+                    </h3>
+                </div>
+                <div class="grid-item">
+                    <h3>
+                        MATCHES LOST: {{matchwinloss[2]}}<br><br>
+                        ROUND LOSSES: {{roundwinloss[2]}}
+                    </h3>
+                </div>
+                <div class="grid-item" style="background-color: grey;">
+                </div> -->
             </div>
         </section>
 
+        <section class="combatlog" *ngIf="!showBoard && showCombatLog" style="overflow: auto;">
+                <table style="margin-left: auto; margin-right: auto">
+                    <tr>
+                        <td>
+                            MATCHES WON: {{matchwinloss[0]}}
+                        </td>
+                        <td></td>
+                        <td>
+                            MATCHES TIED: {{matchwinloss[1]}}
+                        </td>
+                        <td></td>
+                        <td>
+                            MATCHES LOST: {{matchwinloss[2]}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ROUND WINS: {{roundwinloss[0]}}
+                        </td>
+                        <td></td>
+                        <td>
+                            ROUND TIES: {{roundwinloss[1]}}
+                        </td>
+                        <td></td>
+                        <td>
+                            ROUND LOSSES: {{roundwinloss[2]}}
+                        </td>
+                    </tr>
+                </table>
+            <div *ngFor="let log of combatLog">
+                {{log}}
+            </div>
+        </section>
+
+        <section class="loginRegister" *ngIf="!showBoard && showLoginRegister">
+            <!-- login -->
+            <app-login id="login"></app-login>
+        </section>
         <section class="opponent-flex">
             <div>
-                <h2>Opponent</h2>
-                <h3>HP: {{playerHP[1]}}</h3>
+                <div class="opponent-name">
+                    <h2>Opponent</h2>
+                </div>
+
                 <div class="player-grid" *ngFor="let pokemon of enemyPokemon">
                     <p>{{pokemon.name}}</p>
                 </div>
@@ -95,9 +156,24 @@
         </section>
     </main>
 
-    <footer><button (click)="getPokemon()" id="ShufflePKM">Shuffle Pokemon</button>
-        <button (click) = "startGame()"> RESET BUTTON FOR DEBUGGING</button>
-        <button (click) = "run()"> EXECUTE A SINGLE ROUND</button>
+    <footer>
+        <table>
+            <tr>
+                <td>
+                    <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded">Shuffle Pokemon</button>
+                    <button (click)="startGame()" *ngIf="gameEnded"> New Game</button>
+                </td>
+                <td>
+                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false;" *ngIf="!showCombatLog">Show Combat Log</button>
+                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false;" *ngIf="!showBoard">Show Board</button>
+                    <button
+                        (click)="showBoard = false; showCombatLog = false; showLoginRegister=true;"
+                    >Show Login</button>
+                </td>
+            </tr>
+        </table>
+
+        <!-- <button (click) = "run()"> EXECUTE A SINGLE ROUND</button> -->
     </footer>
 </body>
 
