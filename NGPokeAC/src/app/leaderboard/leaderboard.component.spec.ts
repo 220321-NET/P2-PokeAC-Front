@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PKMBEINFOComponent } from './pkm-be-info.component';
+import { LeaderboardComponent } from './leaderboard.component';
 
-describe('PKMBEINFOComponent', () => {
-  let component: PKMBEINFOComponent;
-  let fixture: ComponentFixture<PKMBEINFOComponent>;
+describe('LeaderboardComponent', () => {
+  let component: LeaderboardComponent;
+  let fixture: ComponentFixture<LeaderboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PKMBEINFOComponent ]
+      declarations: [ LeaderboardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PKMBEINFOComponent);
+    fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
