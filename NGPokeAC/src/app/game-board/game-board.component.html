@@ -1,111 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <title> PokeAC </title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="game-board.component.css">
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
     <meta name="description" content="Pokemon Auto Chess!">
- </head>
+</head>
 
 <body>
     <header>
         <img src="../../assets/userlmn_94e0458ca35d9b788b5982c1788071b1.png">
     </header>
-    
+
     <main>
-        <section class = "player-flex">
+        <section class="player-flex">
             <div>
-                <h2>Player</h2>
+                <h2>Player: </h2>
+                <h3>HP: {{playerHP[0]}}</h3>
             </div>
-            <div class = "player-grid" *ngFor="let pokemon of playerPokemon">
+
+            <div class="player-grid" *ngFor="let pokemon of playerPokemon">
                 <p>{{pokemon.name}}</p>
             </div>
         </section>
 
-        <section class = "board-flex">
-            <div class = "board-grid">
-                <div class = "grid-item">
+        <section class="board-flex">
+            <div class="board-grid">
+                <div class="grid-item add-ball-enemy" *ngFor="let pokemon of enemySelectPokemon">
+                    <img
+                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
+                </div>
+                <div class="grid-item add-grass">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                 </div>
-                <div class = "grid-item add-grass">
+                <div class="grid-item add-grass">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item">
+                <div class="grid-item">
                 </div>
-                <div class = "grid-item add-ball">
-                    <button (click)= "addPokemon(choosePokemon)">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon.id}}.png">
+                <div class="grid-item add-ball" *ngFor="let pokemon of selectPokemon">
+                    <button (click)="addPokemon(pokemon)">
+                        <img
+                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
                     </button>
                 </div>
-                <div class = "grid-item add-ball">
-                    <button (click)= "addPokemon(choosePokemon1)">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon1.id}}.png">
-                    </button>
-                </div>
-                <div class = "grid-item add-ball">
-                    <button (click)= "addPokemon(choosePokemon2)">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon2.id}}.png">
-                    </button>
-                </div>
-                <div class = "grid-item add-ball">
-                    <button (click)= "addPokemon(choosePokemon3)">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon3.id}}.png">
-                    </button>
-                </div>
-                <div class = "grid-item add-ball">
-                    <button (click)= "addPokemon(choosePokemon4)">
-                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{choosePokemon4.id}}.png">
-                    </button>
-                </div>
+                
             </div>
         </section>
-    
-        <section class = "opponent-flex">
+
+        <section class="opponent-flex">
             <div>
                 <h2>Opponent</h2>
+                <h3>HP: {{playerHP[1]}}</h3>
+                <div class="player-grid" *ngFor="let pokemon of enemyPokemon">
+                    <p>{{pokemon.name}}</p>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer><button (click)="getPokemon()">Shuffle Pokemon</button></footer>
+    <footer><button (click)="getPokemon()" id="ShufflePKM">Shuffle Pokemon</button>
+        <button (click) = "startGame()"> RESET BUTTON FOR DEBUGGING</button>
+        <button (click) = "run()"> EXECUTE A SINGLE ROUND</button>
+    </footer>
 </body>
+
 </html>
-
-
-    

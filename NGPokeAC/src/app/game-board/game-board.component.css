@@ -107,6 +107,17 @@ header
     text-decoration: none;
 }
 
+.add-ball-enemy
+{   
+    background-image: url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/e7cb1a05e60dd2e.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110px;
+    background-position-y: -17px;
+    background-color: black;
+    text-decoration: none;
+}
+
 .grid-item button
 {
     padding: 0;

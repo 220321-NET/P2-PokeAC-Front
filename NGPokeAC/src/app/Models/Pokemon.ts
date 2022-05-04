@@ -6,7 +6,7 @@ export interface Pokemon
     attack: number;
     // special?: number;
     defense: number;
-    type: string;
+    type1: string;
     // rarity?: number;
     // childID?: number;
     // parentID?: number;
