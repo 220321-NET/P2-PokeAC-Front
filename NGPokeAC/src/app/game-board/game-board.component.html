@@ -117,8 +117,8 @@
             </div>
         </section>
 
-        <section class="loginRegister" *ngIf="!showBoard && showLoginRegister">
-            <!-- login {{pokemon.type1}} -->
+        <section class="loginRegister" *ngIf="!showBoard && showLoginRegister" style = "height: 669.438px;">
+            <!-- login -->
             <app-login id="login" loggedInUser="loggedInUser" (notify)="onNotify($event)"></app-login>
         </section>
         <section class="opponent-flex">
@@ -135,16 +135,14 @@
     </main>
 
     <footer>
-        <table>
+        <table style = "height: 100%; align-items: center;">
             <tr>
                 <td>
-                    <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded">Shuffle Pokemon</button>
-                    <button (click)="startGame()" *ngIf="gameEnded"> New Game</button>
-                </td>
-                <td>
-                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false;" *ngIf="!showCombatLog">Show Combat Log</button>
-                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false;" *ngIf="!showBoard">Show Board</button>
-                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true;">Show Login</button>
+                    <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded" class = "bottom-button">Shuffle</button>
+                    <button (click)="startGame()" *ngIf="gameEnded" class = "bottom-button"> New Game</button>
+                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false;" *ngIf="!showCombatLog" class = "bottom-button">Combat Log</button>
+                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false;" *ngIf="!showBoard" class = "bottom-button">Board</button>
+                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true;" class = "bottom-button">Login</button>
                 </td>
             </tr>
         </table>

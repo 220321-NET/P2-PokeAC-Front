@@ -121,16 +121,13 @@ export class GameBoardComponent implements OnInit {
     if (this.playerHP[0] > this.playerHP[1] && this.playerHP[0] > 0) {
       console.log("You Win!");
       document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/221c3193832d1bf645cfd16ef3a09885.png alt=pokemon-font border=0></a>";
-      this.gameState = "You Win!";
     }
     if (this.playerHP[1] > this.playerHP[0] && this.playerHP[1] > 0) {
       document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/83121f4f2771f5c158dd5dfc38e712a2.png alt=pokemon-font border=0></a>"; 
-      this.gameState = "You Lost...";
       console.log("You Lose..."); 
     }
     if (this.playerHP[0] < 1 && this.playerHP[1] < 1) {
       document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/a788a277818d6d985a749ed27ed5a0b6.png alt=pokemon-font border=0></a>"; 
-      this.gameState = "You Tied.";
       console.log("You... tied?"); 
     }
   }
@@ -409,5 +406,6 @@ export class GameBoardComponent implements OnInit {
 
   ngOnInit() {
     this.getPokemon();
+    
   }
 }

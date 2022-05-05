@@ -194,8 +194,10 @@ footer {
     align-items: center;
 }
 
-footer button {
+.bottom-button {
     height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 /* .container {
