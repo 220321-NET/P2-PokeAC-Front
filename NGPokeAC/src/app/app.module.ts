@@ -16,7 +16,7 @@ import { LeaderboardComponent } from './leaderboard/leaderboard.component';
     AppComponent,
     GameBoardComponent,
     LoginComponent,
-
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
