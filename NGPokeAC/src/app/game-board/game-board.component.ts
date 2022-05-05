@@ -3,6 +3,9 @@ import { Pokemon } from '../Models/Pokemon';
 import { User } from '../Models/User';
 import { HttpService } from '../services/http.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { LoginComponent } from '../login/login.component';
+import { LeaderboardComponent } from '../leaderboard/leaderboard.component';
+import { lbSlot } from '../Models/lbSlot';
 
 @Component({
   selector: 'app-game-board',
@@ -13,6 +16,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 export class GameBoardComponent implements OnInit {
 
   http: HttpClient;
+  lbc!: LeaderboardComponent;
   httpService: HttpService;
   selectPokemon: Pokemon[] = [];
   enemySelectPokemon: Pokemon[] = [];
@@ -23,20 +27,29 @@ export class GameBoardComponent implements OnInit {
   roundwinloss: number[] = [0, 0, 0];
   gameticks: number = 1;
   round: number = 1;
-  gameState: string = "";
+  gameStarted: boolean = false;
   gameEnded: boolean = false;
   combatLog: string[] = ["Game Started, Begin Logging"];
   showBoard: boolean = true;
   showCombatLog: boolean = false;
   showLoginRegister: boolean = false;
+  showLeaderboard: boolean = false;
   loggedInUser: User = {
-    username: 'Player',
+    id: 0,
+    username: '',
     password: '',
     matches: 0,
     wins: 0,
     losses: 0
   }
-  
+  opponentUser: User = {
+    id: 0,
+    username: '',
+    password: '',
+    matches: 0,
+    wins: 0,
+    losses: 0
+  }
 
 
   @Output()
@@ -56,20 +69,21 @@ export class GameBoardComponent implements OnInit {
   } // end run method
 
   public startGame() {
-    document.getElementById("gameState")!.innerHTML = "";
+    document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220505/70fb415bdbbb1a96db669ccc54d98a5e.png alt=pokemon-font border=0>";
     //at the start of the game reset everything to 0
-    this.gameState = "";
     this.playerHP = [10, 10];
     this.matchwinloss = [0, 0, 0];
     this.playerPokemon = [];
     this.enemyPokemon = [];
     this.getPokemon();
+    this.gameStarted = false;
     this.gameEnded = false;
+    this.round = 1;
     this.combatLog = ["Game Started, Begin Logging"]; 
   } // end startGame method
 
   public startRound(Attacker: Pokemon[], Defender: Pokemon[]) {
-
+    this.addLog("Round: " + this.round);
     this.roundwinloss = [0, 0, 0];
 
     let aDex = Attacker;
@@ -91,12 +105,12 @@ export class GameBoardComponent implements OnInit {
         case 0:
           this.matchwinloss[1]++;
           this.roundwinloss[1]++;
-          console.log("Player tied");
+          // console.log("Player tied");
           this.addLog("Both the Player's  "+ aPokemon.name +" and " + dPokemon.name + " defeated each other simultaneously")
           break;
         case 1:
           this.playerHP[1]--;
-          console.log("Player won");
+          // console.log("Player won");
           this.matchwinloss[0]++;
           this.roundwinloss[0]++;
           this.addLog("Opponent's "+ dPokemon.name +" was defeated by Player's " + aPokemon.name)
@@ -106,6 +120,7 @@ export class GameBoardComponent implements OnInit {
           break;
       }
     }
+    this.round++;
     if (this.playerHP[0] > 0 && this.playerHP[1] > 0) {
       this.getPokemon();
     } else {
@@ -116,21 +131,26 @@ export class GameBoardComponent implements OnInit {
     }
   } // end startRound method
 
+
+
   public gameEnd() {
     //checks player hp and if hp <= 0 that person loses
-    if (this.playerHP[0] > this.playerHP[1] && this.playerHP[0] > 0) {
+    if (this.playerHP[0] > this.playerHP[1] && this.playerHP[0] >= 0) {
       console.log("You Win!");
-      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/221c3193832d1bf645cfd16ef3a09885.png alt=pokemon-font border=0></a>";
-      this.gameState = "You Win!";
+      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/221c3193832d1bf645cfd16ef3a09885.png alt=pokemon-font border=0>";
+      this.httpService.matchResult(this.loggedInUser, "won").subscribe(res =>{this.loggedInUser= res;});
+      this.httpService.matchResult(this.opponentUser, "lost").subscribe(res =>{this.opponentUser= res;});
     }
-    if (this.playerHP[1] > this.playerHP[0] && this.playerHP[1] > 0) {
-      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/83121f4f2771f5c158dd5dfc38e712a2.png alt=pokemon-font border=0></a>"; 
-      this.gameState = "You Lost...";
+    if (this.playerHP[1] > this.playerHP[0] && this.playerHP[1] >= 0) {
+      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/83121f4f2771f5c158dd5dfc38e712a2.png alt=pokemon-font border=0>"; 
+      this.httpService.matchResult(this.loggedInUser, "lost").subscribe(res =>{this.loggedInUser = res;});
+      this.httpService.matchResult(this.opponentUser, "won").subscribe(res =>{this.opponentUser= res;});
       console.log("You Lose..."); 
     }
     if (this.playerHP[0] < 1 && this.playerHP[1] < 1) {
-      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/a788a277818d6d985a749ed27ed5a0b6.png alt=pokemon-font border=0></a>"; 
-      this.gameState = "You Tied.";
+      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/a788a277818d6d985a749ed27ed5a0b6.png alt=pokemon-font border=0>"; 
+      this.httpService.matchResult(this.loggedInUser, "tied").subscribe(res =>{this.loggedInUser = res;});
+      this.httpService.matchResult(this.opponentUser, "tied").subscribe(res =>{this.opponentUser= res;});
       console.log("You... tied?"); 
     }
   }
@@ -157,18 +177,18 @@ export class GameBoardComponent implements OnInit {
       turn++;
       // console.log(turn + "turn count");
       if (turn > 10) {
-        console.log("tied");
+        // console.log("tied");
         return -5;
       }
     }
     if (aHP <= 0) {
-      this.addLog(Attacker.name + " has fainted.");
-      console.log(Attacker.name + "fainted");
+      // this.addLog(Attacker.name + " has fainted.");
+      // console.log(Attacker.name + "fainted");
       result--;
     }
     if (dHP <= 0) {
-      this.addLog(Attacker.name + " has fainted.");
-      console.log(Defender.name + "fainted");
+      // this.addLog(Attacker.name + " has fainted.");
+      // console.log(Defender.name + "fainted");
       result++;
     }
     return result;
@@ -362,7 +382,7 @@ export class GameBoardComponent implements OnInit {
   public getPokemon() {
     const btn = document.getElementById('ShufflePKM') as HTMLButtonElement | null; // to disable the shuffle button
     btn?.setAttribute('disabled', ''); //
-
+    
     for (let i = 0; i < 5; i++) {
       this.httpService.getRandomPokemon().subscribe(res => { this.enemySelectPokemon[i] = res });
     }
@@ -382,8 +402,14 @@ export class GameBoardComponent implements OnInit {
     if (!this.gameEnded) {
       this.playerPokemon.push(pokemon);
       this.enemyPokemon.push(this.enemySelectPokemon[Math.floor(Math.random() * 5)]);
-      if (this.playerPokemon.length < 3) {
-        this.getPokemon();
+      if(this.gameStarted == false){
+        if (this.playerPokemon.length < 3) {
+          this.getPokemon();
+        } else {
+          this.startRound(this.playerPokemon, this.enemyPokemon);
+          this.gameStarted = true;
+          document.getElementById("gameState")!.innerHTML = "";
+        }
       } else {
         this.startRound(this.playerPokemon, this.enemyPokemon);
       }
@@ -406,8 +432,17 @@ export class GameBoardComponent implements OnInit {
   public addLog(string: string) {
     this.combatLog.push(string);
   }
+  public testLogin() {
+    console.log(this.loggedInUser);
+  }
 
   ngOnInit() {
     this.getPokemon();
+    this.httpService.getUserByUsername("Guest").subscribe(res => {
+      this.loggedInUser = res;
+    });
+    this.httpService.getUserByUsername("bot").subscribe(res => {
+      this.opponentUser = res;
+    });
   }
 }

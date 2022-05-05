@@ -48,9 +48,8 @@
             back
         </button>
     </div>
-    <div *ngIf="displayPlay">
-        <button (click)="passUserToGameBoard()">play</button>
-        <button (click)="logOut()">logout</button>
+    <div *ngIf="displayLoggedIn">
+        <button (click)="logout()">logout</button>
     </div>
     <div>{{message}}</div>
 </div>

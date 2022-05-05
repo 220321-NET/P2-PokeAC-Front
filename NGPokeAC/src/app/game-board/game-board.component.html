@@ -53,6 +53,7 @@
                 <div class="grid-item add-grass">
                 </div>
                 <div class="grid-item add-grass add-gamestate" id="gameState">
+                    <img src="https://fontmeme.com/permalink/220505/70fb415bdbbb1a96db669ccc54d98a5e.png" *ngIf = "!gameStarted">
                 </div>
                 <div class="grid-item add-grass">
                 </div>
@@ -118,13 +119,19 @@
         </section>
 
         <section class="loginRegister" *ngIf="!showBoard && showLoginRegister">
-            <!-- login {{pokemon.type1}} -->
-            <app-login id="login" loggedInUser="loggedInUser" (notify)="onNotify($event)"></app-login>
+            <!-- login -->
+            <app-login id="login" loggedInUser="loggedInUser" (notify)="onNotify($event)" class="login-flex"></app-login>
         </section>
+
+        <section class="LB" *ngIf="!showBoard && showLeaderboard">
+            <!-- leaderboard stuff-->
+            <app-leaderboard id="leaderboardPart"></app-leaderboard>
+        </section>
+
         <section class="opponent-flex">
             <div>
                 <div class="opponent-name">
-                    <h2>Opponent</h2>
+                    <h2>{{opponentUser.username}}</h2>
                 </div>
 
                 <div class="player-grid" *ngFor="let pokemon of enemyPokemon">
@@ -135,16 +142,16 @@
     </main>
 
     <footer>
-        <table>
+        <table style = "height: 100%; align-items: center;">
             <tr>
                 <td>
-                    <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded">Shuffle Pokemon</button>
-                    <button (click)="startGame()" *ngIf="gameEnded"> New Game</button>
-                </td>
-                <td>
-                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false;" *ngIf="!showCombatLog">Show Combat Log</button>
-                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false;" *ngIf="!showBoard">Show Board</button>
-                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true;">Show Login</button>
+                    <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded" class = "bottom-button">Shuffle Pokemon</button>
+                    <button (click)="startGame()" *ngIf="gameEnded" class = "bottom-button"> New Game</button>
+                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showCombatLog && !showLoginRegister && !showLeaderboard" class = "bottom-button">Show Combat Log</button>
+                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showBoard" class = "bottom-button">Show Board</button>
+                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true; showLeaderboard=false;" class = "bottom-button">Show Login</button>
+                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>
+                    
                 </td>
             </tr>
         </table>

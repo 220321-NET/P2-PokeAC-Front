@@ -25,6 +25,7 @@ main {
 }
 
 header {
+    margin-top: 20px;
     text-align: center;
     width: 100%;
     flex: 1;
@@ -116,20 +117,22 @@ header {
     background-color: white;
     text-align: center;
 }
+
 .loginRegister {
-    height: 669.438px;
     width: 50%;
     border: solid #3B4CCA;
     border-width: 3px;
     border-radius: 5px;
     background-color: white;
-    text-align: center;
+    height: 558px;
+}
+
+.login-flex
+{
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-#login {
-    
 }
 
 .board-grid {
@@ -168,6 +171,11 @@ header {
     text-decoration: none;
 }
 
+.add-ball:hover 
+{
+    background-color: aqua;
+}
+
 .add-ball-enemy {
     background-image: url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/e7cb1a05e60dd2e.png);
     background-repeat: no-repeat;
@@ -194,9 +202,22 @@ footer {
     align-items: center;
 }
 
-footer button {
+.bottom-button {
     height: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
 }
+
+.LB{
+    /* offset: 100px 100px; */
+    width: 50%;
+    border: solid #3B4CCA;
+    border-width: 3px;
+    border-radius: 5px;
+    background-color: white;
+    height: 558px;
+}
+
 
 /* .container {
     width: 100%;
