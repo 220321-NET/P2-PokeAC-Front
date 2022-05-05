@@ -28,8 +28,8 @@ export class HttpService {
     return this.http.get<Pokemon>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetRandomPokemon');
   }
   
-  getLeaderboard(): Observable<lbSlot>{
-    return this.http.get<lbSlot>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetLeaderboard');
+  getLeaderboard(): Observable<lbSlot[]>{
+    return this.http.get<lbSlot[]>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetLeaderboard');
     //return this.http.get<User>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetLeaderboard');
   }
 }

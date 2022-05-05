@@ -1,6 +1,6 @@
 <h1>leaderboard works!
     <button (click)="showLeaderboard()">test</button>
 <div class="leaderboard" *ngFor="let users of leaderboard">
-    Player :{{users}}
+    Name: {{users.username}} Matches: {{users.matches}} Wins: {{users.wins}} Losses: {{users.losses}}
 </div>
 </h1>

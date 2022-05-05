@@ -30,7 +30,10 @@ export class LeaderboardComponent implements OnInit {
     {
       this.displayLeaderBoard = true;
       this.httpService.getLeaderboard().subscribe((res) =>{
-        this.leaderboard.push(res);
+        for(let x in res)
+        {
+          this.leaderboard.push(res[x]);
+        }
         console.log(res);
       })
     }
