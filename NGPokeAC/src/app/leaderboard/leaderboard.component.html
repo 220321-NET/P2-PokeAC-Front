@@ -1,5 +1,10 @@
 <body>
 <div class="lb" *ngFor="let users of leaderboard">
-    Name: {{users.username}} Matches: {{users.matches}} Wins: {{users.wins}} Losses: {{users.losses}}
+    <tr>
+    <td class="lname">Name: {{users.username}} </td> 
+    <td> Matches: {{users.matches}} </td>
+    <td>Wins: {{users.wins}} </td> 
+    <td>Losses: {{users.losses}} </td>
+    </tr>
 </div>
 </body>

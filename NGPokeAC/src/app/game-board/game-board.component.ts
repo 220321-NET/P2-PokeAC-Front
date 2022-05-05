@@ -436,6 +436,12 @@ export class GameBoardComponent implements OnInit {
     console.log(this.loggedInUser);
   }
 
+  transform(value:string): string 
+  {
+    let first = value.substr(0,1).toUpperCase();
+    return first + value.substr(1); 
+  }
+
   ngOnInit() {
     this.getPokemon();
     this.httpService.getUserByUsername("Guest").subscribe(res => {

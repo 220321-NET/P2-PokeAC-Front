@@ -62,7 +62,6 @@
                     <h3 *ngIf="playerHP[1] <= 0"><br>Fainted</h3>
                 </div>
                 <div class="grid-item" style="background-color: #2a75bb">
-
                 </div>
                 <div class="grid-item add-grass">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/{{playerPokemon[0].id}}.png"
@@ -122,13 +121,11 @@
             <!-- login -->
             <app-login id="login" loggedInUser="loggedInUser" (notify)="onNotify($event)" class="login-flex"></app-login>
         </section>
-
         <section class="LB" *ngIf="!showBoard && showLeaderboard">
             <!-- leaderboard stuff-->
             <app-leaderboard id="leaderboardPart"></app-leaderboard>
         </section>
-
-        <section class="opponent-flex">
+                <section class="opponent-flex">
             <div>
                 <div class="opponent-name">
                     <h2>{{opponentUser.username}}</h2>
@@ -150,8 +147,7 @@
                     <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showCombatLog && !showLoginRegister && !showLeaderboard" class = "bottom-button">Show Combat Log</button>
                     <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showBoard" class = "bottom-button">Show Board</button>
                     <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true; showLeaderboard=false;" class = "bottom-button">Show Login</button>
-                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>
-                    
+                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>                
                 </td>
             </tr>
         </table>
