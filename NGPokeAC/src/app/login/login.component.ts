@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { User } from '../Models/User';
 import { NgForm } from '@angular/forms';
 import { HttpService } from '../services/http.service';
@@ -45,9 +45,15 @@ export class LoginComponent implements OnInit {
     wins: 0,
     losses: 0
   }
-  
+  @Output() notify = new EventEmitter<User>();
 
   constructor(private api : HttpService, private router: Router) { }
+
+  passUserToGameBoard() {
+    this.message = "You are going to play.";
+    this.notify.emit(this.loggedInUser);
+  }
+
   goToLogin(){
     this.displayLoginOrRegister = false;
     this.displayLogin = true;

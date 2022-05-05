@@ -49,7 +49,7 @@
         </button>
     </div>
     <div *ngIf="displayPlay">
-        <button>play</button>
+        <button (click)="passUserToGameBoard()">play</button>
         <button (click)="logOut()">logout</button>
     </div>
     <div>{{message}}</div>

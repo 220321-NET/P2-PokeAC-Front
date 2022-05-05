@@ -48,6 +48,21 @@ header {
     text-align: center;
 }
 
+.player-list-flex 
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-left: 5px;
+    align-items: center;
+}
+
+.list-image
+{
+    height: 50px;
+}
+
 .player-name {
     border: solid white;
     border-radius: 5px;

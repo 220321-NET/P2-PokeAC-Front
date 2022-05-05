@@ -18,12 +18,12 @@
         <section class="player-flex">
             <div>
                 <div class="player-name">
-                    <h2>Player</h2>
+                    <h2>{{loggedInUser.username}}</h2>
                 </div>
             </div>
 
             <div class="player-grid" *ngFor="let pokemon of playerPokemon">
-                <p>{{pokemon.name}}</p>
+                <div class= "player-list-flex"><img src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png" class="list-image"><span>{{pokemon.name}}</span><span><img src = "https://raw.githubusercontent.com/msikma/pokeresources/master/resources/type-icons/gen8/{{pokemon.type1}}.svg"></span></div>
             </div>
         </section>
 
@@ -80,28 +80,6 @@
                             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
                     </button>
                 </div>
-                <!-- <div class="grid-item" style="background-color: grey">
-                </div>
-                <div class="grid-item">
-                    <h3>
-                        MATCHES WON: {{matchwinloss[0]}}<br><br>
-                        ROUND WINS: {{roundwinloss[0]}}
-                    </h3>
-                </div>
-                <div class="grid-item">
-                    <h3>
-                        MATCHES TIED: {{matchwinloss[1]}}<br><br>
-                        ROUND TIES: {{roundwinloss[1]}}
-                    </h3>
-                </div>
-                <div class="grid-item">
-                    <h3>
-                        MATCHES LOST: {{matchwinloss[2]}}<br><br>
-                        ROUND LOSSES: {{roundwinloss[2]}}
-                    </h3>
-                </div>
-                <div class="grid-item" style="background-color: grey;">
-                </div> -->
             </div>
         </section>
 
@@ -140,8 +118,8 @@
         </section>
 
         <section class="loginRegister" *ngIf="!showBoard && showLoginRegister">
-            <!-- login -->
-            <app-login id="login"></app-login>
+            <!-- login {{pokemon.type1}} -->
+            <app-login id="login" loggedInUser="loggedInUser" (notify)="onNotify($event)"></app-login>
         </section>
         <section class="opponent-flex">
             <div>
@@ -150,7 +128,7 @@
                 </div>
 
                 <div class="player-grid" *ngFor="let pokemon of enemyPokemon">
-                    <p>{{pokemon.name}}</p>
+                    <div class= "player-list-flex"><img src = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{pokemon.id}}.png" class="list-image"><span>{{pokemon.name}}</span><span><img src = "https://raw.githubusercontent.com/msikma/pokeresources/master/resources/type-icons/gen8/{{pokemon.type1}}.svg"></span></div>
                 </div>
             </div>
         </section>
@@ -166,9 +144,7 @@
                 <td>
                     <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false;" *ngIf="!showCombatLog">Show Combat Log</button>
                     <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false;" *ngIf="!showBoard">Show Board</button>
-                    <button
-                        (click)="showBoard = false; showCombatLog = false; showLoginRegister=true;"
-                    >Show Login</button>
+                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true;">Show Login</button>
                 </td>
             </tr>
         </table>

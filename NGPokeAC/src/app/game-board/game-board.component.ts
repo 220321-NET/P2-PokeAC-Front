@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output, Input } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon';
 import { User } from '../Models/User';
 import { HttpService } from '../services/http.service';
@@ -29,8 +29,8 @@ export class GameBoardComponent implements OnInit {
   showBoard: boolean = true;
   showCombatLog: boolean = false;
   showLoginRegister: boolean = false;
-  currentPlayer: User = {
-    username: '',
+  loggedInUser: User = {
+    username: 'Player',
     password: '',
     matches: 0,
     wins: 0,
@@ -45,6 +45,10 @@ export class GameBoardComponent implements OnInit {
   constructor(http: HttpClient, httpService: HttpService) {
     this.http = http;
     this.httpService = httpService;
+  }
+
+  onNotify(passedUser: User): void {
+    this.loggedInUser = passedUser;
   }
 
   public run() {
