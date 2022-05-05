@@ -29,7 +29,7 @@ export class HttpService {
   }
   
   getLeaderboard(): Observable<lbSlot[]>{
-    return this.http.get<lbSlot[]>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetLeaderboard');
+    return this.http.get<lbSlot[]>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetLeaderboardWinRate');
     //return this.http.get<User>('https://pokemonautochess.azurewebsites.net/api/Pokemon/GetLeaderboard');
   }
 }
