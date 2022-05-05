@@ -347,7 +347,6 @@ export class GameBoardComponent implements OnInit {
     this.enemyPokemon = [];
   }
 
-
   ngOnInit() {
     this.getPokemon();
   }
