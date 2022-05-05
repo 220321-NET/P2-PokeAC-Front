@@ -15,6 +15,9 @@ export class HttpService {
   {
     this.http = http;
   }
+  getUserByUsername(usernameToTry: string): Observable<User>{
+    return this.http.get<User>(`https://pokemonautochess.azurewebsites.net/api/Pokemon/GetUserByUsername/${usernameToTry}`);
+  }
   createUser(p: Partial<User>): Observable<any> {
     return this.http.post('https://pokemonautochess.azurewebsites.net/api/Pokemon/CreateUser', p);
   }

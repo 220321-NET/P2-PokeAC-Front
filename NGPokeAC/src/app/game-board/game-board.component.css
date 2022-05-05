@@ -1,69 +1,100 @@
-html, body
-{
+html,
+body {
     margin: 0;
     height: 100%;
     min-height: 100%;
+    border-radius: 5px;
+    
 }
 
-body
-{   
+body {
     margin: 0;
     display: flex;
     flex-direction: column;
     background-color: #FFE088;
 }
 
-main
-{
+/* img {
+    max-width: 100%;
+    height: auto;
+} */
+
+main {
     display: flex;
     flex: 3;
 }
 
-header	
-{
+header {
     text-align: center;
     width: 100%;
     flex: 1;
 }
+.head{
+    width: auto;
+    height: 125px;
+}
 
-.player-flex
-{
+.player-flex {
     margin-right: 10px;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
     width: 25%;
     height: 100%;
-    border: solid #3B4CCA;
+    border: solid #2a75bb;
     border-width: 3px;
     border-radius: 5px;
     background-color: white;
     text-align: center;
 }
 
-.opponent-flex 
+.player-list-flex 
 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-left: 5px;
+    align-items: center;
+}
+
+.list-image
+{
+    height: 50px;
+}
+
+.player-name {
+    border: solid white;
+    border-radius: 5px;
+    background-color: #2a75bb;
+}
+
+.opponent-name {
+    border: solid white;
+    border-radius: 5px;
+    background-color: rgb(192, 58, 58);
+}
+
+.opponent-flex {
     margin-right: 10px;
     margin-left: 10px;
     display: flex;
     flex-direction: column;
     width: 25%;
     height: 100%;
-    border: solid #3B4CCA;
+    border: solid rgb(192, 58, 58);
     border-width: 3px;
     border-radius: 5px;
     background-color: white;
     text-align: center;
 }
 
-.player-grid
-{
+.player-grid {
     display: grid;
     grid-template-rows: repeat(1, 1fr);
 }
 
-.board-flex
-{
+.board-flex {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -75,8 +106,33 @@ header
     text-align: center;
 }
 
-.board-grid 
-{   
+.combatlog
+{
+    height: 558px;
+    width: 50%;
+    border: solid #3B4CCA;
+    border-width: 3px;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+}
+.loginRegister {
+    height: 669.438px;
+    width: 50%;
+    border: solid #3B4CCA;
+    border-width: 3px;
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#login {
+    
+}
+
+.board-grid {
     height: 100%;
     margin: 10px;
     display: grid;
@@ -85,48 +141,51 @@ header
     grid-gap: 2px;
 }
 
-.grid-item 
-{
+.grid-item {
     border: solid black;
     border-radius: 5px;
 }
 
-.add-grass
-{
+.add-grass {
     background-image: url(https://www.pwo-wiki.info/images/4/46/Grass_comparison.png);
-    border: solid  #92D1B3;
+    border: solid #92D1B3;
 }
 
-.add-ball
-{   
+.add-gamestate {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-ball {
+    background-image: url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/e7cb1a05e60dd2e.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110px;
+    /* border: solid #2a75bb; */
+    background-position-y: -17px;
+    background-color: #2a75bb;
+    text-decoration: none;
+}
+
+.add-ball-enemy {
     background-image: url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/e7cb1a05e60dd2e.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 110px;
     background-position-y: -17px;
+    /* border: solid rgb(192, 58, 58); */
+    background-color: rgb(192, 58, 58);
     text-decoration: none;
 }
 
-.add-ball-enemy
-{   
-    background-image: url(http://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/e7cb1a05e60dd2e.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 110px;
-    background-position-y: -17px;
-    background-color: black;
-    text-decoration: none;
-}
-
-.grid-item button
-{
+.grid-item button {
     padding: 0;
     border: none;
     background: none;
 }
 
-footer
-{   
+footer {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
@@ -135,8 +194,7 @@ footer
     align-items: center;
 }
 
-footer button
-{
+footer button {
     height: 100%;
 }
 

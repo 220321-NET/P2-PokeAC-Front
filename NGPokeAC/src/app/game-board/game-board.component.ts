@@ -1,5 +1,6 @@
-import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output, Input } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon';
+import { User } from '../Models/User';
 import { HttpService } from '../services/http.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 
@@ -18,8 +19,25 @@ export class GameBoardComponent implements OnInit {
   playerPokemon: Pokemon[] = [];
   enemyPokemon: Pokemon[] = [];
   playerHP: number[] = [10, 10];
+  matchwinloss: number[] = [0, 0, 0];
+  roundwinloss: number[] = [0, 0, 0];
   gameticks: number = 1;
   round: number = 1;
+  gameState: string = "";
+  gameEnded: boolean = false;
+  combatLog: string[] = ["Game Started, Begin Logging"];
+  showBoard: boolean = true;
+  showCombatLog: boolean = false;
+  showLoginRegister: boolean = false;
+  loggedInUser: User = {
+    username: 'Player',
+    password: '',
+    matches: 0,
+    wins: 0,
+    losses: 0
+  }
+  
+
 
   @Output()
   success: EventEmitter<Array<Pokemon>> = new EventEmitter<Array<Pokemon>>();
@@ -29,21 +47,30 @@ export class GameBoardComponent implements OnInit {
     this.httpService = httpService;
   }
 
+  onNotify(passedUser: User): void {
+    this.loggedInUser = passedUser;
+  }
+
   public run() {
     this.startRound(this.playerPokemon, this.enemyPokemon);
   } // end run method
 
   public startGame() {
+    document.getElementById("gameState")!.innerHTML = "";
     //at the start of the game reset everything to 0
+    this.gameState = "";
     this.playerHP = [10, 10];
+    this.matchwinloss = [0, 0, 0];
     this.playerPokemon = [];
     this.enemyPokemon = [];
+    this.getPokemon();
+    this.gameEnded = false;
+    this.combatLog = ["Game Started, Begin Logging"]; 
   } // end startGame method
 
   public startRound(Attacker: Pokemon[], Defender: Pokemon[]) {
-    let w = 0;
-    let l = 0;
-    let t = 0;
+
+    this.roundwinloss = [0, 0, 0];
 
     let aDex = Attacker;
     let dDex = Defender;
@@ -57,25 +84,56 @@ export class GameBoardComponent implements OnInit {
       switch (this.startFight(aPokemon, dPokemon)) {
         case -1:
           this.playerHP[0]--;
-          console.log("Player Lost");
-          l++;
+          this.matchwinloss[2]++;
+          this.roundwinloss[2]++;
+          this.addLog("Player's "+ aPokemon.name +" was defeated by Opponent's " + dPokemon.name)
           break;
         case 0:
-          t++;
+          this.matchwinloss[1]++;
+          this.roundwinloss[1]++;
           console.log("Player tied");
+          this.addLog("Both the Player's  "+ aPokemon.name +" and " + dPokemon.name + " defeated each other simultaneously")
           break;
         case 1:
           this.playerHP[1]--;
           console.log("Player won");
-          w++;
+          this.matchwinloss[0]++;
+          this.roundwinloss[0]++;
+          this.addLog("Opponent's "+ dPokemon.name +" was defeated by Player's " + aPokemon.name)
           break;
         default:
+          this.addLog("Both the Player's  "+ aPokemon.name +" and " + dPokemon.name + " got tired of Fighting")
           break;
       }
     }
-    //at end of round allow another selection
-
+    if (this.playerHP[0] > 0 && this.playerHP[1] > 0) {
+      this.getPokemon();
+    } else {
+      this.gameEnded = true;
+      this.gameEnd();
+      this.addLog("Game Ended, Logging Complete");
+      //go to game end
+    }
   } // end startRound method
+
+  public gameEnd() {
+    //checks player hp and if hp <= 0 that person loses
+    if (this.playerHP[0] > this.playerHP[1] && this.playerHP[0] > 0) {
+      console.log("You Win!");
+      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/221c3193832d1bf645cfd16ef3a09885.png alt=pokemon-font border=0></a>";
+      this.gameState = "You Win!";
+    }
+    if (this.playerHP[1] > this.playerHP[0] && this.playerHP[1] > 0) {
+      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/83121f4f2771f5c158dd5dfc38e712a2.png alt=pokemon-font border=0></a>"; 
+      this.gameState = "You Lost...";
+      console.log("You Lose..."); 
+    }
+    if (this.playerHP[0] < 1 && this.playerHP[1] < 1) {
+      document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/a788a277818d6d985a749ed27ed5a0b6.png alt=pokemon-font border=0></a>"; 
+      this.gameState = "You Tied.";
+      console.log("You... tied?"); 
+    }
+  }
 
   public startFight(Attacker: Pokemon, Defender: Pokemon): number {
     let turn = 1;
@@ -84,27 +142,32 @@ export class GameBoardComponent implements OnInit {
     let dDamageBonus = this.damageBonus(Defender, Attacker);
     let aHP = Attacker.hp;
     let dHP = Defender.hp;
-
+    this.addLog(Attacker.name + " and " + Defender.name + " are fighting");
     while (aHP > 0 && dHP > 0) {
+      this.addLog("Turns: " + turn);
       //while both either are alive keep fighting
       let aDamage = this.damageCalc(Attacker.attack, aDamageBonus, Defender.defense)
       let dDamage = this.damageCalc(Defender.attack, dDamageBonus, Attacker.defense)
       aHP = aHP - dDamage;
       dHP = dHP - aDamage;
+      this.addLog(Attacker.name + " did " + aDamage + " to " + Defender.name);
+      this.addLog(Defender.name + " did " + dDamage + " to " + Attacker.name);
       // console.log(dDamage + "dealt to player");
       // console.log(aDamage + "dealt to enemy");
       turn++;
       // console.log(turn + "turn count");
       if (turn > 10) {
         console.log("tied");
-        return result;
+        return -5;
       }
     }
     if (aHP <= 0) {
+      this.addLog(Attacker.name + " has fainted.");
       console.log(Attacker.name + "fainted");
       result--;
     }
     if (dHP <= 0) {
+      this.addLog(Attacker.name + " has fainted.");
       console.log(Defender.name + "fainted");
       result++;
     }
@@ -316,20 +379,18 @@ export class GameBoardComponent implements OnInit {
   }
 
   public addPokemon(pokemon: Pokemon) {
-    this.playerPokemon.push(pokemon);
-    this.enemyPokemon.push(this.enemySelectPokemon[Math.floor(Math.random() * 5)]);
-    this.startRound(this.playerPokemon, this.enemyPokemon);
-
-
-    //need too add ^^ and also make it so the selection option disappears til round ends
-
-    // push to database under user id
-    // push to db under id 1 for cpu
-    // have cpu id be like either 0 or 100+
+    if (!this.gameEnded) {
+      this.playerPokemon.push(pokemon);
+      this.enemyPokemon.push(this.enemySelectPokemon[Math.floor(Math.random() * 5)]);
+      if (this.playerPokemon.length < 3) {
+        this.getPokemon();
+      } else {
+        this.startRound(this.playerPokemon, this.enemyPokemon);
+      }
+    }
   }
 
   public shuffle(arrayToShuffle: Array<Pokemon>): any {
-    //c
     let currentIndex = arrayToShuffle.length, randomIndex;
 
     while (currentIndex != 0) {
@@ -342,9 +403,8 @@ export class GameBoardComponent implements OnInit {
     return arrayToShuffle;
   } // end shuffle method
 
-  public clearDex() {
-    this.playerPokemon = [];
-    this.enemyPokemon = [];
+  public addLog(string: string) {
+    this.combatLog.push(string);
   }
 
   ngOnInit() {
