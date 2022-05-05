@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 
 @NgModule({
