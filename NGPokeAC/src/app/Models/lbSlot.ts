@@ -1,6 +1,8 @@
 export interface lbSlot{
-    name: string,
+    id: number;
+    username: string,
+    password: string;
+    matches: number;
     wins: number,
     losses: number,
-    matches: number
 }
