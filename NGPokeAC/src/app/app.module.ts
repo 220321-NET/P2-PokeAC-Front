@@ -6,6 +6,7 @@ import { GameBoardComponent } from './game-board/game-board.component';
 import { FormsModule} from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { LoginComponent } from './login/login.component';
     AppComponent,
     GameBoardComponent,
     LoginComponent,
-
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
