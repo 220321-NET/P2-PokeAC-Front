@@ -139,10 +139,10 @@
                 <td>
                     <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded" class = "bottom-button">Shuffle Pokemon</button>
                     <button (click)="startGame()" *ngIf="gameEnded" class = "bottom-button"> New Game</button>
-                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showCombatLog && !showLoginRegister && !showLeaderboard" class = "bottom-button">Show Combat Log</button>
-                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showBoard" class = "bottom-button">Show Board</button>
-                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true; showLeaderboard=false;" class = "bottom-button">Show Login</button>
-                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>                
+                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showCombatLog && !showLoginRegister && !showLeaderboard" class = "bottom-button">Combat Log</button>
+                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showBoard" class = "bottom-button">Game Board</button>
+                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true; showLeaderboard=false;" class = "bottom-button">Login or Register</button>
+                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>              
                 </td>
             </tr>
         </table>

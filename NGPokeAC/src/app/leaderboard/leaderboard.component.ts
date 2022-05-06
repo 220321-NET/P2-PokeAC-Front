@@ -13,7 +13,10 @@ export class LeaderboardComponent implements OnInit {
   httpService:HttpService;
   leaderboard: lbSlot[] = [];
   showleaderboard: boolean = false;
-
+  top3_pball: string[] = ["https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png", 
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png",
+                          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/great-ball.png"
+                          ] // here to remove need for absolute positioning on table and make it aligned to according to column row and to prevent loading in early
   @Output() notify = new EventEmitter<lbSlot[]>();
 
   // actually unsure if this is the right way of doing this
@@ -39,6 +42,9 @@ export class LeaderboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.activateLeaderboard();
+  }
+  WinRate(wins:number, matches:number){
+    return Math.round((wins/matches)* 100)
   }
 
 }

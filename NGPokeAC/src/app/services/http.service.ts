@@ -28,6 +28,10 @@ export class HttpService {
   matchResult(user: User, result: string): Observable<any>{
     return this.http.put(`https://pokemonautochess.azurewebsites.net/api/Pokemon/Match/${result}`, user);
   }
+
+  createMatch(player: User, opponentId: number, result: string): Observable<any>{
+    return this.http.post(`https://pokemonautochess.azurewebsites.net/api/Pokemon/Matches/${opponentId}/${result}`, player);
+  }
   /*
   createUser(user: User): Observable<User> {
     let stringifiedUser: string = JSON.stringify(user);

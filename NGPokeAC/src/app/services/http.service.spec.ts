@@ -13,4 +13,8 @@ describe('HttpService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should return a random pokemon when an api call is made', () => {
+    service.getRandomPokemon()
+  })
 });
