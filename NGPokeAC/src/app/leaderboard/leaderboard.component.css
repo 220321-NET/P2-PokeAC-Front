@@ -1,8 +1,26 @@
 body{
-    margin: 5px;
     line-height: 50px;
+    font-family: Arial, Helvetica, sans-serif;
 }
+table, th, td,tr{
+    border-collapse: collapse;
+    border: solid;
+    width: 100%;
+    table-layout: fixed;
+}
+
 td{
-    margin: 12px 12px 12px 12px;
-    padding: 12px 12px 12px 12px;
+    text-align: center;
+}
+
+#topPlayers tr:nth-child(even){
+    background-color:lightgrey;
+}
+
+#topPlayers tr:nth-child(odd){
+    background-color: whitesmoke;
+}
+
+#name, #matches, #wins, #losses{
+    background-color: cadetblue;
 }

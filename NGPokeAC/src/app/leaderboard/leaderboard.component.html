@@ -1,4 +1,4 @@
-<body>
+<!--<body>
 <div class="lb" *ngFor="let users of leaderboard">
     <tr>
     <td class="lname">Name: {{users.username}} </td> 
@@ -7,4 +7,23 @@
     <td>Losses: {{users.losses}} </td>
     </tr>
 </div>
+</body>
+-->
+<body>
+        <table id="topPlayers">
+            <tr>
+                <th id="name">Name</th>
+                <th id="matches">Matches</th>
+                <th id="wins">Wins</th>
+                <th id="losses">Losses</th>
+            </tr>
+            <tr class="lb" *ngFor="let users of leaderboard">
+                <td>{{users.username}}</td>
+                <td>{{users.matches}}</td>
+                <td>{{users.wins}}</td>
+                <td>{{users.losses}}</td>
+            </tr>
+
+        </table>
+
 </body>
