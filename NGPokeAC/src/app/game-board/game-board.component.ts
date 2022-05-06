@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output, Input, Renderer2 } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon';
 import { User } from '../Models/User';
 import { HttpService } from '../services/http.service';
@@ -34,6 +34,7 @@ export class GameBoardComponent implements OnInit {
   showCombatLog: boolean = false;
   showLoginRegister: boolean = false;
   showLeaderboard: boolean = false;
+  renderer: Renderer2;
   loggedInUser: User = {
     id: 0,
     username: '',
@@ -55,9 +56,10 @@ export class GameBoardComponent implements OnInit {
   @Output()
   success: EventEmitter<Array<Pokemon>> = new EventEmitter<Array<Pokemon>>();
 
-  constructor(http: HttpClient, httpService: HttpService) {
+  constructor(http: HttpClient, httpService: HttpService, renderer: Renderer2) {
     this.http = http;
     this.httpService = httpService;
+    this.renderer = renderer;
   }
 
   onNotify(passedUser: User): void {
@@ -436,10 +438,9 @@ export class GameBoardComponent implements OnInit {
     console.log(this.loggedInUser);
   }
 
-  transform(value:string): string 
+  click(component: any): void
   {
-    let first = value.substr(0,1).toUpperCase();
-    return first + value.substr(1); 
+
   }
 
   ngOnInit() {
