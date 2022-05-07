@@ -30,8 +30,7 @@
         <section class="board-flex" *ngIf="showBoard">
             <div class="board-grid">
                 <div class="grid-item add-ball-enemy" *ngFor="let pokemon of enemySelectPokemon">
-                    <img
-                        src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
                 </div>
                 <div class="grid-item" style="background-color: #2a75bb">
 
@@ -41,8 +40,7 @@
                 <div class="grid-item add-grass">
                 </div>
                 <div class="grid-item add-grass">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{enemyPokemon[0].id}}.png"
-                        *ngIf="enemyPokemon.length > 0">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{enemyPokemon[0].id}}.png" *ngIf="enemyPokemon.length> 0">
                 </div>
                 <div class="grid-item" style="background-color: rgb(192, 58, 58)">
                 </div>
@@ -64,8 +62,7 @@
                 <div class="grid-item" style="background-color: #2a75bb">
                 </div>
                 <div class="grid-item add-grass">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/{{playerPokemon[0].id}}.png"
-                        *ngIf="playerPokemon.length > 0">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/{{playerPokemon[0].id}}.png" *ngIf="playerPokemon.length> 0">
                 </div>
                 <div class="grid-item add-grass">
                 </div>
@@ -75,10 +72,8 @@
 
                 </div>
                 <div class="grid-item add-ball" *ngFor="let pokemon of selectPokemon">
-                    <button (click)="addPokemon(pokemon)">
-                        <img
-                            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png">
-                    </button>
+                    <button (click)="addPokemon(pokemon)" id="imgHolder" #parent>
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{pokemon.id}}.png" #component (click)="click(component)"></button>
                 </div>
             </div>
         </section>
@@ -128,7 +123,7 @@
                 <section class="opponent-flex">
             <div>
                 <div class="opponent-name">
-                    <h2>{{opponentUser.username}}</h2>
+                    <span class="capitalize"><h2>{{opponentUser.username}}</h2></span>
                 </div>
 
                 <div class="player-grid" *ngFor="let pokemon of enemyPokemon">
@@ -144,10 +139,10 @@
                 <td>
                     <button (click)="getPokemon()" id="ShufflePKM" *ngIf="!gameEnded" class = "bottom-button">Shuffle Pokemon</button>
                     <button (click)="startGame()" *ngIf="gameEnded" class = "bottom-button"> New Game</button>
-                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showCombatLog && !showLoginRegister && !showLeaderboard" class = "bottom-button">Show Combat Log</button>
-                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showBoard" class = "bottom-button">Show Board</button>
-                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true; showLeaderboard=false;" class = "bottom-button">Show Login</button>
-                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>                
+                    <button (click)="showCombatLog = true; showBoard=false; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showCombatLog && !showLoginRegister && !showLeaderboard" class = "bottom-button">Combat Log</button>
+                    <button (click)="showCombatLog = false; showBoard=true; showLoginRegister= false; showLeaderboard=false;" *ngIf="!showBoard" class = "bottom-button">Game Board</button>
+                    <button (click)="showBoard = false; showCombatLog = false; showLoginRegister=true; showLeaderboard=false;" class = "bottom-button">Login or Register</button>
+                    <button (click)="showLeaderboard=true; showBoard=false; showCombatLog=false; showLoginRegister=false;" class = "bottom-button">Leaderboard</button>              
                 </td>
             </tr>
         </table>

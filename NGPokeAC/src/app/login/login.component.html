@@ -1,55 +1,60 @@
 <!--top level menu for login or register-->
-<div>
+<div class="everything">
+    <img class="pikachu" [src]="imageUrl" />
     <!--button to go to login form-->
-    <button
-        *ngIf="displayLoginOrRegister"
-        (click)="goToLogin()"
-    >
-        login
-    </button>
-    <!--button to go to register form-->
-    <button 
-        *ngIf="displayLoginOrRegister"
-        (click)="goToRegister()"
-    >
-        register
-    </button>
-    <!-- login form-->
-    <div *ngIf="displayLogin">
-        username: <input type="text" [(ngModel)]="userToLogin.username"/>
-        password: <input type="password" [(ngModel)]="userToLogin.password" />
-        <!-- -->
+    <div class="buttonsAndInputs">
         <button
-            (click)="tryToLogin()"
+            *ngIf="displayLoginOrRegister"
+            (click)="goToLogin()"
         >
             login
         </button>
-        <!--back button-->
-        <button
-            (click)="goToLoginOrRegister()"
+        <!--button to go to register form-->
+        <button 
+            *ngIf="displayLoginOrRegister"
+            (click)="goToRegister()"
         >
-            back
+        register
         </button>
-    </div>
-    <!--register form-->
-    <div *ngIf="displayRegister">
-        username: <input type="text" [(ngModel)]="userToRegister.username"/>
-        password: <input type="password" [(ngModel)]="userToRegister.password">
-        <!-- -->
-        <button
-        (click)="tryToRegister()"
-        >
+        <!-- login form-->
+        <div *ngIf="displayLogin">
+            username: <input type="text" [(ngModel)]="userToLogin.username"/>
+            password: <input type="password" [(ngModel)]="userToLogin.password" />
+            <!-- -->
+            <button
+                (click)="tryToLogin()"
+            >
+            login
+            </button>
+            <!--back button-->
+            <button
+                (click)="goToLoginOrRegister()"
+            >
+            back
+            </button>
+        </div>
+        <!--register form-->
+        <div *ngIf="displayRegister">
+            username: <input type="text" [(ngModel)]="userToRegister.username"/>
+            password: <input type="password" [(ngModel)]="userToRegister.password">
+            <!-- -->
+            <button
+            (click)="tryToRegister()"
+            >
             register
-        </button>
-        <!--back button-->
-        <button
-            (click)="goToLoginOrRegister()"
-        >
+            </button>
+            <!--back button-->
+            <button
+                (click)="goToLoginOrRegister()"
+            >
             back
-        </button>
+            </button>
+        </div>
+        <div *ngIf="displayLoggedIn">
+            <button (click)="logout()">
+                logout
+            </button>
+        </div>
     </div>
-    <div *ngIf="displayLoggedIn">
-        <button (click)="logout()">logout</button>
-    </div>
-    <div>{{message}}</div>
+    <div class="message" [style]="messageColor">{{message}}</div>
 </div>

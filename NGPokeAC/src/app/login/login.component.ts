@@ -16,7 +16,15 @@ export class LoginComponent implements OnInit {
   displayLogin: boolean = false;
   displayRegister: boolean = false;
   displayLoggedIn: boolean = false;
+  normalPikachuUrl: string = "https://i.imgur.com/4ee8yHS.png";
+  happyPikachuUrl: string = "https://i.imgur.com/iPWsL9u.png";
+  sadPikachuUrl: string = "https://i.imgur.com/i7KnTKH.png";
+  imageUrl: string = "https://i.imgur.com/4ee8yHS.png";
   message: string = "Login if you have an accout or register if you want to join.";
+  blueColor: string = "background-color: #2a75bb;";
+  redColor: string = "background-color: rgb(192, 58, 58);";
+  greenColor: string = "background-color: darkseagreen;";
+  messageColor: string = "background-color: #2a75bb;";
   userToLogin: User = {
     id: 0,
     username: '',
@@ -64,12 +72,16 @@ export class LoginComponent implements OnInit {
     this.displayLoginOrRegister = false;
     this.displayLogin = true;
     this.displayRegister = false;
+    this.imageUrl = this.normalPikachuUrl;
+
   }
   goToRegister(){
     this.displayLoginOrRegister = false;
     this.displayLogin = false;
     this.displayRegister = true;
-    this.message = "Choose a username and password.";
+    this.message = "Choose a username and password. Username and password must contain letters and numbers only and cannot be blank.";
+    this.messageColor = this.blueColor;
+    this.imageUrl = this.normalPikachuUrl;
   }
   goToLoginOrRegister(){
     this.displayLoginOrRegister = true;
@@ -77,6 +89,8 @@ export class LoginComponent implements OnInit {
     this.displayRegister = false;
     this.displayLoggedIn = false;
     this.message = "Login if you have an accout or register if you want to join.";
+    this.imageUrl = this.normalPikachuUrl;
+    this.messageColor = this.blueColor;
   }
   goToLoggedIn(){
     this.message = `You are playing as ${this.loggedInUser.username}.`;
@@ -84,6 +98,16 @@ export class LoginComponent implements OnInit {
     this.displayLogin = false;
     this.displayRegister = false;
     this.displayLoggedIn = true;
+    this.imageUrl = this.happyPikachuUrl;
+    this.messageColor = this.greenColor;
+  }
+  clearFields(){
+    this.userToLogin.username = "";
+    this.userToLogin.password = "";
+    this.userToCheck.username = "";
+    this.userToCheck.password = "";
+    this.userToRegister.username = "";
+    this.userToRegister.password = "";
   }
   logout(){
     this.loggedInUser = {
@@ -103,21 +127,37 @@ export class LoginComponent implements OnInit {
   }
   
   tryToLogin(){
-    this.api.getUserByUsername(this.userToLogin.username).subscribe(res => {
-      this.userToCheck = res;
-      if(!this.userToCheck) {
-        this.message = `There is no account for ${this.userToLogin.username}. You can go back and register.`;
-        this.clearFields();
-      }
-      if(this.userToCheck.username == this.userToLogin.username && this.userToCheck.password == this.userToLogin.password ) {
-        this.loggedInUser = this.userToCheck;
-        this.notify.emit(this.loggedInUser);
-        this.goToLoggedIn();
-      } else {
-        this.message = "Invalid credentials.";
-        this.clearFields();
-      }
-    });
+    if (
+      /^[a-zA-Z0-9]+$/.test(this.userToLogin.username)
+      && /^[a-zA-Z0-9]+$/.test(this.userToLogin.password)
+    ) {
+      this.api.getUserByUsername(this.userToLogin.username).subscribe(res => {
+        this.userToCheck = res;
+        if(!this.userToCheck) {
+          this.message = `There is no account for ${this.userToLogin.username}. You can go back and register.`;
+          this.imageUrl = this.sadPikachuUrl;
+          this.messageColor = this.redColor;
+          this.clearFields();
+          
+        }
+        if(this.userToCheck.username == this.userToLogin.username && this.userToCheck.password == this.userToLogin.password ) {
+          this.loggedInUser = this.userToCheck;
+          this.notify.emit(this.loggedInUser);
+          this.goToLoggedIn();
+        } else {
+          this.message = "Invalid credentials.";
+          this.imageUrl = this.sadPikachuUrl;
+          this.messageColor = this.redColor;
+          this.clearFields();
+          
+        }
+      });
+    } else {
+      this.message = "Username and password must contain letters and numbers only and cannot be blank.";
+      this.clearFields();
+      this.imageUrl = this.sadPikachuUrl;
+      this.messageColor = this.redColor;
+    }
   }
   tryToRegister(){
     // do an if statement calling to the api in checking if username is aleady taken
@@ -126,26 +166,30 @@ export class LoginComponent implements OnInit {
       this.message = res.toString();
     })
     */
-    
-    this.api.usernameTaken(this.userToRegister.username).subscribe(res => {     
-      if(res === true) {
-      this.message = `The username ${this.userToRegister.username} is taken.`;
-      this.clearFields();
-      } else {
-        this.api.createUser(this.userToRegister).subscribe();
-        this.message = `An account was created for ${this.userToRegister.username}`;
+    if (
+      /^[a-zA-Z0-9]+$/.test(this.userToRegister.username)
+      && /^[a-zA-Z0-9]+$/.test(this.userToRegister.password)
+    ) {
+      this.api.usernameTaken(this.userToRegister.username).subscribe(res => {     
+        if(res === true) {
+        this.message = `The username ${this.userToRegister.username} is taken.`;
         this.clearFields();
-      }
-    });
-    
-  }
-  clearFields(){
-    this.userToLogin.username = "";
-    this.userToLogin.password = "";
-    this.userToCheck.username = "";
-    this.userToCheck.password = "";
-    this.userToRegister.username = "";
-    this.userToRegister.password = "";
+        this.imageUrl = this.sadPikachuUrl;
+        this.messageColor = this.redColor;
+        } else {
+          this.api.createUser(this.userToRegister).subscribe();
+          this.message = `An account was created for ${this.userToRegister.username}`;
+          this.clearFields();
+          this.imageUrl = this.happyPikachuUrl;
+          this.messageColor = this.greenColor;
+        }
+      });
+    } else {
+      this.message = "Username and password must contain letters and numbers only and cannot be blank.";
+      this.clearFields();
+      this.imageUrl = this.sadPikachuUrl;
+      this.messageColor = this.redColor;
+    }
   }
 
   ngOnInit(): void {

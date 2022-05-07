@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, ɵAPP_ID_RANDOM_PROVIDER, Output, Input, Renderer2 } from '@angular/core';
 import { Pokemon } from '../Models/Pokemon';
 import { User } from '../Models/User';
 import { HttpService } from '../services/http.service';
@@ -34,6 +34,7 @@ export class GameBoardComponent implements OnInit {
   showCombatLog: boolean = false;
   showLoginRegister: boolean = false;
   showLeaderboard: boolean = false;
+  renderer: Renderer2;
   loggedInUser: User = {
     id: 0,
     username: '',
@@ -55,9 +56,10 @@ export class GameBoardComponent implements OnInit {
   @Output()
   success: EventEmitter<Array<Pokemon>> = new EventEmitter<Array<Pokemon>>();
 
-  constructor(http: HttpClient, httpService: HttpService) {
+  constructor(http: HttpClient, httpService: HttpService, renderer: Renderer2) {
     this.http = http;
     this.httpService = httpService;
+    this.renderer = renderer;
   }
 
   onNotify(passedUser: User): void {
@@ -140,17 +142,23 @@ export class GameBoardComponent implements OnInit {
       document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/221c3193832d1bf645cfd16ef3a09885.png alt=pokemon-font border=0>";
       this.httpService.matchResult(this.loggedInUser, "won").subscribe(res =>{this.loggedInUser= res;});
       this.httpService.matchResult(this.opponentUser, "lost").subscribe(res =>{this.opponentUser= res;});
+      this.httpService.createMatch(this.loggedInUser, this.opponentUser.id, "won").subscribe();
+      this.httpService.createMatch(this.opponentUser, this.loggedInUser.id, "lost").subscribe();
     }
     if (this.playerHP[1] > this.playerHP[0] && this.playerHP[1] >= 0) {
       document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/83121f4f2771f5c158dd5dfc38e712a2.png alt=pokemon-font border=0>"; 
       this.httpService.matchResult(this.loggedInUser, "lost").subscribe(res =>{this.loggedInUser = res;});
       this.httpService.matchResult(this.opponentUser, "won").subscribe(res =>{this.opponentUser= res;});
+      this.httpService.createMatch(this.loggedInUser, this.opponentUser.id, "lost").subscribe();
+      this.httpService.createMatch(this.opponentUser, this.loggedInUser.id, "won").subscribe();
       console.log("You Lose..."); 
     }
     if (this.playerHP[0] < 1 && this.playerHP[1] < 1) {
       document.getElementById("gameState")!.innerHTML = "<img src=https://fontmeme.com/permalink/220504/a788a277818d6d985a749ed27ed5a0b6.png alt=pokemon-font border=0>"; 
       this.httpService.matchResult(this.loggedInUser, "tied").subscribe(res =>{this.loggedInUser = res;});
       this.httpService.matchResult(this.opponentUser, "tied").subscribe(res =>{this.opponentUser= res;});
+      this.httpService.createMatch(this.loggedInUser, this.opponentUser.id, "tied").subscribe()
+      this.httpService.createMatch(this.opponentUser, this.loggedInUser.id, "won").subscribe();
       console.log("You... tied?"); 
     }
   }
@@ -436,10 +444,9 @@ export class GameBoardComponent implements OnInit {
     console.log(this.loggedInUser);
   }
 
-  transform(value:string): string 
+  click(component: any): void
   {
-    let first = value.substr(0,1).toUpperCase();
-    return first + value.substr(1); 
+
   }
 
   ngOnInit() {
