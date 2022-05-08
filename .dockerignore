@@ -1,5 +1,4 @@
 logs/
 .vs
 .vscode
-**/bin/
 **/obj/
