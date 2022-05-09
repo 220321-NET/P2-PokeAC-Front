@@ -231,8 +231,10 @@ To be written after accepted, general gameplay loop is
     - MMR "System"
 
 ## ERD
-<img src= "https://cdn.discordapp.com/attachments/966050181957165158/966727144531173397/P2.png">
 
+![image](https://user-images.githubusercontent.com/101997617/167427319-ed5e18c4-6240-4e6d-a2d7-690e37f5bb42.png)
+
+![image](https://user-images.githubusercontent.com/101997617/167427282-b20f718c-864e-4870-bd7e-163091b303eb.png)
 
 
 ## Tech Stack
