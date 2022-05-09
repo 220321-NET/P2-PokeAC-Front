@@ -1,15 +1,16 @@
 FROM node:latest as build
 
-WORKDIR /
+WORKDIR /NGPokeAC
 
 COPY . .
 
 RUN npm install
-RUN npm run build -- --prod
+RUN npm run build
 
-FROM nginx:alpine
+FROM nginx:latest
 
-WORKDIR /
+WORKDIR /NGPokeAC
+
 
 COPY --from=build /app/dist .
 
