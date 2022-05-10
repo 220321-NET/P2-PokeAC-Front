@@ -1,4 +1,4 @@
-# P2 Proposal - Pokemon Auto Chess (name to be determined)
+# P2 Proposal - Pokemon Auto Chess
 ### An autochess style game themed after Pokemon.
 
 ## Concept: What is autochess? 
@@ -9,13 +9,11 @@ The goal of the player is to assemble the strongest possible team before being s
 Generally there is a currency system involved for selecting units as well as a limit to the deployment count. There is also generally a rarity system to allow easier stacking of a weaker unit and causes a player to make a choice or gamble on investing in a higher cost, rarity, and stronger unit.
 
 ## Overview and Gameplay
-To be written after accepted, general gameplay loop is
-- choose cards
-- play cards
-- fight. each card randomly rps's against another. 
-- W/L is converted to damage to player
-- damage scales up due to number of fights happening
-- winner is whoever has player hp
+Pokemon Autochess is an auto battler inspired game in which a Pokemon from a random selection of 5 can be added to a team and fight an enemy's randomly generated team. The general gameplay loop is as follows:
+- Choose the initial 3 Pokemon before the game starts
+- Pokemon list is shuffled and each one fights the opponent's pokemon
+- Select another Pokemon to add to list
+- Repeat from step 2 until player or opponent hp reaches 0
 
 ## Pokemon
 - Uses https://pokeapi.co/
