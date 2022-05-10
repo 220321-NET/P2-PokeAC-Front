@@ -1,6 +1,8 @@
 # P2 Proposal - Pokemon Auto Chess
 ### An autochess style game themed after Pokemon.
 
+Backend Link: https://github.com/220321-NET/P2-PokeAC-Back
+
 ## Concept: What is autochess? 
 Autochess style games such as Hearthstone Battlegrounds, Dota Underlords and Team-Fight Tactics, are games that use an auto battler system usually with chess like elements such as a grid shaped battle field. These games are designed to take no user input during combat and have the user interaction be limited to selecting a unit and placing it on the field. Generally, the unit can be combined to become a stronger version of the unit and the strategy ends up being to get as many of a certain unit as possible to create the strongest variant of them possible.
 
