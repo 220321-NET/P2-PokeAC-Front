@@ -243,4 +243,4 @@ Pokemon Autochess is an auto battler inspired game in which a Pokemon from a ran
 - Java Script
 - Angular
 - ASP.NET
-- (idk what db)
+
