@@ -20,21 +20,7 @@ Pokemon Autochess is an auto battler inspired game in which a Pokemon from a ran
 - Information we need to take:
     - Name**
     - Sprite/Image**
-    - An Attack Name and Power
-    - Evolution (This creates a new unit) **
-### Ex:
-- Charmander
-    - Name : Charmander
-    - Sprite: <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png">
-    - Attack: Ember 40 (basic fire pokemon attack)
-    - Evolves into
-        - Name: Charmeleon
-        - Sprite: <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png">
-        - Attack: Flamethrower 90 (stronger fire pokemon attack)
-        - Evolves into
-            - Name: Charizard
-            - Sprite: <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png">
-            - Attack: Flare Blitz/Blast Burn 120/150 (some of the strongest)
+
 
 ## Tables
 - <b> Users Table </b>
@@ -237,10 +223,3 @@ Pokemon Autochess is an auto battler inspired game in which a Pokemon from a ran
 
 ## Tech Stack
 ![image](https://user-images.githubusercontent.com/101997617/167427282-b20f718c-864e-4870-bd7e-163091b303eb.png)
-
-- C#
-- HTML/CSS
-- Java Script
-- Angular
-- ASP.NET
-
